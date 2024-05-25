@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
-import { IUserResponse } from "../types/ResponseTypes"
+import { ICustomerResponse } from "../types/ResponseTypes"
 import { useAuth } from "../providers/AuthProvider"
 import axios, { AxiosError } from "axios"
-import { GET_CURRENT_USER_URL } from "../constants/requestUrls"
+import { GET_ALL_CUSTOMERS_URL } from "../constants/requestUrls"
 
-const useFetchCurrentUser = () => {
+const useFetchAllCustomers = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<AxiosError>()
-    const [currentUser, setCurrentUser] = useState<IUserResponse | null>(null)
+    const [customers, setCustomers] = useState<ICustomerResponse[] | null>(null)
 
     const {token} = useAuth();
 
@@ -20,7 +20,7 @@ const useFetchCurrentUser = () => {
           }
       
           axios
-            .get<IUserResponse>(GET_CURRENT_USER_URL, {
+            .get<ICustomerResponse[]>(GET_ALL_CUSTOMERS_URL, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -28,7 +28,7 @@ const useFetchCurrentUser = () => {
             .then((response) => {
               const data = response.data;
       
-              setCurrentUser(data);
+              setCustomers(data);
             })
             .catch((error) => {
               if (axios.isAxiosError(error)) {
@@ -40,7 +40,7 @@ const useFetchCurrentUser = () => {
             });
     }, [])
 
-    return {loading, currentUser, error};
+    return {loading, customers, error};
 }
 
-export default useFetchCurrentUser;
+export default useFetchAllCustomers;

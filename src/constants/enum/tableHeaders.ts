@@ -1,0 +1,7 @@
+export enum CUSTOMER_TABLE_HEADERS {
+    ID = "ID",
+    FULL_NAME = "FULL NAME",
+    PHONE = "PHONE NO",
+    STATUS = "STATUS",
+    ACTIONS = "ACTIONS"
+}

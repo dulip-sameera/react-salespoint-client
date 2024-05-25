@@ -1,2 +1,8 @@
 export const AUTH_LOGIN_URL = "http://localhost:8080/auth/login"
 export const GET_CURRENT_USER_URL = "http://localhost:8080/users/me"
+export const GET_ALL_CUSTOMERS_URL = "http://localhost:8080/customers"
+export const GET_CUSTOMER_URL = "http://localhost:8080/customers"
+export const GET_CUSTOMER_BY_PHONE_URL = "http://localhost:8080/customers/phone/"
+export const POST_CREATE_CUSTOMER_URL = "http://localhost:8080/customers"
+export const PUT_UPDATE_CUSTOMER_URL = "http://localhost:8080/customers"
+export const DELETE_CUSTOMER_URL = "http://localhost:8080/customers"
