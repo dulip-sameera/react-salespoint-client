@@ -3,8 +3,8 @@ import { useFormik } from "formik";
 import { ValidationSchema } from "../schema/LoginFormSchema";
 import { ILoginFormField } from "../types/FormFieldTypes";
 import axios from "axios";
-import { IAuthResponse } from "../types/ResponseTypes";
-import { AUTH_LOGIN } from "../constants/requestUrls";
+import { ILoginResponse } from "../types/ResponseTypes";
+import { AUTH_LOGIN_URL } from "../constants/requestUrls";
 import { toast } from "react-toastify";
 import { useAuth } from "../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
@@ -22,9 +22,9 @@ const LoginPage = () => {
     };
 
     try {
-      const response = await axios.post<IAuthResponse>(AUTH_LOGIN, data);
+      const response = await axios.post<ILoginResponse>(AUTH_LOGIN_URL, data);
 
-      const authData: IAuthResponse = {
+      const authData: ILoginResponse = {
         token: response.data.token,
         expiresIn: response.data.expiresIn,
       };

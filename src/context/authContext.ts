@@ -1,10 +1,10 @@
 import { createContext } from "react";
-import { IAuthResponse } from "../types/ResponseTypes";
+import { ILoginResponse } from "../types/ResponseTypes";
 
 const AuthContext = createContext({
     isAuthenticated: false,
     token: "",
-    login: (data:IAuthResponse) => {},
+    login: (data:ILoginResponse) => {},
     logout: () => {},
 });
 

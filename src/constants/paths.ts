@@ -1,2 +1,7 @@
 export const UI_PATH_LOGIN = "/login"
 export const UI_PATH_HOME = "/home"
+export const UI_PATH_ITEM = "/item"
+export const UI_PATH_STOCK = "/stock"
+export const UI_PATH_ORDER = "/order"
+export const UI_PATH_CUSTOMER = "/customer"
+export const UI_PATH_USER = "/user"

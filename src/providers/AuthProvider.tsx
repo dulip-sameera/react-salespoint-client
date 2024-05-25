@@ -1,6 +1,6 @@
 import { FC, ReactNode, useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { IAuthResponse } from "../types/ResponseTypes";
+import { ILoginResponse } from "../types/ResponseTypes";
 import AuthContext from "../context/authContext";
 
 interface Props {
@@ -20,7 +20,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
     }
   }, []);
 
-  const login = (data: IAuthResponse) => {
+  const login = (data: ILoginResponse) => {
     console.log(data);
     setCookie("token", data.token, {
       path: "/",
