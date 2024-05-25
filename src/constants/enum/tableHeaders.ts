@@ -5,3 +5,13 @@ export enum CUSTOMER_TABLE_HEADERS {
     STATUS = "STATUS",
     ACTIONS = "ACTIONS"
 }
+
+
+export enum USER_TABLE_HEADERS {
+    ID ="ID",
+    FULL_NAME ="FULL NAME",
+    USERNAME = "USERNAME",
+    ROLE = "ROLE",
+    STATUS = "STATUS",
+    ACTION = "ACTION"
+}

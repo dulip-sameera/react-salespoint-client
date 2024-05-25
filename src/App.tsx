@@ -6,16 +6,22 @@ import Provider from "./providers/Provider";
 import Test from "./pages/Test";
 import {
   UI_PATH_ADD_CUSTOMER,
+  UI_PATH_ADD_USER,
   UI_PATH_CUSTOMER,
   UI_PATH_HOME,
   UI_PATH_LOGIN,
   UI_PATH_UPDATE_CUSTOMER,
+  UI_PATH_UPDATE_USER,
+  UI_PATH_USER,
 } from "./constants/paths";
 import { CssBaseline } from "@mui/material";
 import HomePage from "./pages/HomePage";
 import CustomerPage from "./pages/CustomerPage";
 import AddCustomerPage from "./pages/AddCustomerPage";
 import UpdateCustomerPage from "./pages/UpdateCustomerPage";
+import UserPage from "./pages/UserPage";
+import AddUserPage from "./pages/AddUserPage";
+import UpdateUserPage from "./pages/UpdateUserPage";
 
 const App = () => {
   return (
@@ -32,6 +38,12 @@ const App = () => {
           <Route
             path={`${UI_PATH_UPDATE_CUSTOMER}/:id`}
             element={<UpdateCustomerPage />}
+          />
+          <Route path={UI_PATH_USER} element={<UserPage />} />
+          <Route path={UI_PATH_ADD_USER} element={<AddUserPage />} />
+          <Route
+            path={`${UI_PATH_UPDATE_USER}/:id`}
+            element={<UpdateUserPage />}
           />
           <Route path="/test" element={<Test />} />
         </Routes>
