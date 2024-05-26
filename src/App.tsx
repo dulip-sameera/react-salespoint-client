@@ -7,12 +7,15 @@ import Test from "./pages/Test";
 import {
   UI_PATH_ADD_CUSTOMER,
   UI_PATH_ADD_ITEM,
+  UI_PATH_ADD_STOCK,
   UI_PATH_ADD_USER,
   UI_PATH_CUSTOMER,
   UI_PATH_HOME,
   UI_PATH_ITEM,
   UI_PATH_ITEM_CATEGORY,
   UI_PATH_LOGIN,
+  UI_PATH_MORE_STOCK,
+  UI_PATH_STOCK,
   UI_PATH_UPDATE_CUSTOMER,
   UI_PATH_UPDATE_ITEM,
   UI_PATH_UPDATE_USER,
@@ -30,6 +33,9 @@ import ItemPage from "./pages/ItemPage";
 import ItemCategoryPage from "./pages/ItemCategoryPage";
 import AddItemPage from "./pages/AddItemPage";
 import UpdateItemPage from "./pages/UpdateItemPage";
+import StockPage from "./pages/StockPage";
+import AddStockPage from "./pages/AddStockPage";
+import StockDetailsPage from "./pages/StockDetailsPage";
 
 const App = () => {
   return (
@@ -60,6 +66,12 @@ const App = () => {
             element={<UpdateItemPage />}
           />
           <Route path={UI_PATH_ITEM_CATEGORY} element={<ItemCategoryPage />} />
+          <Route path={UI_PATH_STOCK} element={<StockPage />} />
+          <Route path={UI_PATH_ADD_STOCK} element={<AddStockPage />} />
+          <Route
+            path={`${UI_PATH_MORE_STOCK}/:id`}
+            element={<StockDetailsPage />}
+          />
           <Route path="/test" element={<Test />} />
         </Routes>
         <ToastContainer theme="colored" />

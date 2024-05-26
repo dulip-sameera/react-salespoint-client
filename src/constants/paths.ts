@@ -10,6 +10,8 @@ export const UI_PATH_ADD_ITEM_CATEGORY = "/item/category/add";
 export const UI_PATH_UPDATE_ITEM_CATEGORY = "/item/category/update";
 
 export const UI_PATH_STOCK = "/stock";
+export const UI_PATH_ADD_STOCK = "/stock/add";
+export const UI_PATH_MORE_STOCK = "/stock/more";
 
 export const UI_PATH_ORDER = "/order";
 

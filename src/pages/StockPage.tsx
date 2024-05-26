@@ -17,30 +17,31 @@ import TopBar from "../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
-import { ITEM_TABLE_HEADERS } from "../constants/enum/tableHeaders";
+import {
+  STOCK_DETAIL_TABLE_HEADERS,
+  STOCK_TABLE_HEADERS,
+} from "../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
-import { CustomerStatus } from "../constants/enum/CustomerStatus";
 import { useUserDetails } from "../providers/UserProvider";
 import { RoleEnum } from "../constants/enum/RoleEnum";
-import checkRoleIncludes from "../utils/checkRoleIncludes";
 import { IItemResponse } from "../types/ResponseTypes";
-import axios, { HttpStatusCode } from "axios";
+import axios from "axios";
 import { useAuth } from "../providers/AuthProvider";
-import { DELETE_ITEM_URL, GET_ALL_ITEMS_URL } from "../constants/requestUrls";
+import { GET_ALL_ITEMS_URL } from "../constants/requestUrls";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  UI_PATH_ADD_ITEM,
+  UI_PATH_ADD_STOCK,
   UI_PATH_HOME,
-  UI_PATH_ITEM_CATEGORY,
-  UI_PATH_UPDATE_ITEM,
+  UI_PATH_MORE_STOCK,
 } from "../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import useFetchAllItems from "../hook/useFetchAllItems";
 import isUserHavePermission from "../utils/checkRoleIncludes";
+import { Status } from "../constants/enum/StatusEnum";
 
-const tableHeaders = Object.values(ITEM_TABLE_HEADERS);
+const tableHeaders = Object.values(STOCK_TABLE_HEADERS);
 
-const ItemPage = () => {
+const StockPage = () => {
   const [searchText, setSearchText] = useState("");
   const [refresh, setRefresh] = useState(false);
   const [tableData, setTableData] = useState<IItemResponse[] | null>(null);
@@ -94,31 +95,6 @@ const ItemPage = () => {
     //   });
   };
 
-  const handleDelete = (id: number) => {
-    axios
-      .delete<string>(`${DELETE_ITEM_URL}/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        if (response.status == HttpStatusCode.NoContent) {
-          toast.success("Item Deleted");
-          setRefresh((prev) => !prev);
-        }
-      })
-      .catch((error) => {
-        if (axios.isAxiosError(error)) {
-          console.log(error);
-          if (error.status == HttpStatusCode.InternalServerError) {
-            toast.error(error.response?.data.detail);
-          } else {
-            toast.error(error.response?.data.description);
-          }
-        }
-      });
-  };
-
   return (
     <Container>
       <TopBar />
@@ -142,7 +118,7 @@ const ItemPage = () => {
           </Button>
 
           <Typography variant="h4" sx={{ fontSize: { xs: 26, sm: 34 } }}>
-            Item Management
+            Stock Management
           </Typography>
 
           <Divider sx={{ backgroundColor: "#CFFC86" }} />
@@ -201,14 +177,6 @@ const ItemPage = () => {
               flexDirection={{ xs: "column", sm: "row" }}
               gap={2}
             >
-              <Button
-                variant="contained"
-                color="success"
-                onClick={() => navigate(UI_PATH_ITEM_CATEGORY)}
-              >
-                Item Category
-              </Button>
-
               {user &&
                 isUserHavePermission(user.role, [
                   RoleEnum.SUPER_ADMIN,
@@ -219,9 +187,9 @@ const ItemPage = () => {
                   <Button
                     variant="contained"
                     color="success"
-                    onClick={() => navigate(UI_PATH_ADD_ITEM)}
+                    onClick={() => navigate(UI_PATH_ADD_STOCK)}
                   >
-                    Add Item
+                    Add Stock
                   </Button>
                 )}
             </Box>
@@ -254,56 +222,38 @@ const ItemPage = () => {
             <TableBody>
               {!loading &&
                 !error &&
-                tableData?.map((tableDataItem) => (
-                  <TableRow
-                    key={tableDataItem.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell>{tableDataItem.id}</TableCell>
-                    <TableCell>{tableDataItem.name}</TableCell>
-                    <TableCell>{tableDataItem.unitPrice}</TableCell>
-                    <TableCell>{tableDataItem.qty}</TableCell>
-                    <TableCell>{tableDataItem.status}</TableCell>
-                    <TableCell>{tableDataItem.category}</TableCell>
-                    <TableCell>
+                tableData?.map((tableDataItem) =>
+                  tableDataItem.status !== Status.DELETE ? (
+                    <TableRow
+                      key={tableDataItem.id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell>{tableDataItem.id}</TableCell>
+                      <TableCell>{tableDataItem.name}</TableCell>
+                      <TableCell>{tableDataItem.qty}</TableCell>
+                      <TableCell>{tableDataItem.category}</TableCell>
                       {user &&
-                        checkRoleIncludes(user.role, [
-                          RoleEnum.ADMIN,
+                        isUserHavePermission(user.role, [
                           RoleEnum.SUPER_ADMIN,
+                          RoleEnum.ADMIN,
                           RoleEnum.MANAGER,
                           RoleEnum.CLERK,
                         ]) && (
-                          <Box
-                            sx={{
-                              display: "flex",
-                              flexGrow: 1,
-                              gap: 1,
-                              flexDirection: { xs: "column", sm: "row" },
-                            }}
-                          >
+                          <TableCell>
                             <Link
-                              to={`${UI_PATH_UPDATE_ITEM}/${tableDataItem.id}`}
+                              to={`${UI_PATH_MORE_STOCK}/${tableDataItem.id}`}
                             >
                               <Button variant="contained" color="warning">
-                                Update
+                                More
                               </Button>
                             </Link>
-                            {tableDataItem.status !== CustomerStatus.DELETE ? (
-                              <Button
-                                variant="contained"
-                                color="error"
-                                onClick={() => handleDelete(tableDataItem.id)}
-                              >
-                                Delete
-                              </Button>
-                            ) : (
-                              <></>
-                            )}
-                          </Box>
+                          </TableCell>
                         )}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                    </TableRow>
+                  ) : (
+                    <></>
+                  )
+                )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -312,4 +262,4 @@ const ItemPage = () => {
   );
 };
 
-export default ItemPage;
+export default StockPage;

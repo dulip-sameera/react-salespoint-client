@@ -1,3 +1,5 @@
+import { ItemListType } from "./types";
+
 export interface ILoginFormField {
   username: string;
   password: string;
@@ -38,4 +40,9 @@ export interface IItemUpdateFormField {
   price: number;
   category: string;
   status: string;
+}
+
+export interface IStockAddFormField {
+  item: ItemListType | null;
+  qty: number;
 }
