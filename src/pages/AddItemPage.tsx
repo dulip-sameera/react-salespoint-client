@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
@@ -13,36 +14,33 @@ import {
 import TopBar from "../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
-import { UI_PATH_USER } from "../constants/paths";
-import { useUserDetails } from "../providers/UserProvider";
+import { UI_PATH_ITEM } from "../constants/paths";
 import { useEffect, useState } from "react";
 import axios, { HttpStatusCode } from "axios";
 import { useAuth } from "../providers/AuthProvider";
 import { toast } from "react-toastify";
-import { RoleEnum } from "../constants/enum/RoleEnum";
-import { useFormik } from "formik";
-import { AddUserSchema } from "../schema/AddUserSchema";
-import { IUserAddFormField } from "../types/FormFieldTypes";
-import { IUserResponse } from "../types/ResponseTypes";
+import { IItemAddFormField } from "../types/FormFieldTypes";
+import { IItemCategoryResponse, IItemResponse } from "../types/ResponseTypes";
 import {
-  GET_ALL_USER_ROLES_URL,
-  POST_CREATE_USER_URL,
+  GET_ALL_ITEM_CATEGORIES_URL,
+  POST_CREATE_ITEM_URL,
 } from "../constants/requestUrls";
+import { AddItemSchema } from "../schema/AddItemSchema";
+import { useFormik } from "formik";
 
-const AddUserPage = () => {
+const AddItemPage = () => {
   const navigate = useNavigate();
   const { token } = useAuth();
-  const { user } = useUserDetails();
-  const [userRoles, setUserRoles] = useState<string[]>();
+  const [categories, setCategories] = useState<IItemCategoryResponse[]>([]);
 
   useEffect(() => {
     axios
-      .get<string[]>(GET_ALL_USER_ROLES_URL, {
+      .get<IItemCategoryResponse[]>(GET_ALL_ITEM_CATEGORIES_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => setUserRoles(response.data))
+      .then((response) => setCategories(response.data))
       .catch((error) => {
         if (axios.isAxiosError(error)) {
           console.log(error);
@@ -51,23 +49,22 @@ const AddUserPage = () => {
       });
   }, []);
 
-  const handleSubmit = (values: IUserAddFormField) => {
+  const handleSubmit = (values: IItemAddFormField) => {
     const data = {
-      fullName: values.name,
-      username: values.username,
-      password: values.password,
-      role: values.role,
+      name: values.name,
+      unitPrice: values.price,
+      category: values.category,
     };
     axios
-      .post<IUserResponse>(POST_CREATE_USER_URL, data, {
+      .post<IItemResponse>(POST_CREATE_ITEM_URL, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
         if (response.status === HttpStatusCode.Created) {
-          navigate(UI_PATH_USER);
-          toast.success("User Added");
+          navigate(UI_PATH_ITEM);
+          toast.success(`Item Created ${response.data.name}`);
         }
       })
       .catch((error) => {
@@ -85,11 +82,10 @@ const AddUserPage = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      username: "",
-      password: "",
-      role: RoleEnum.CASHIER,
+      price: 0,
+      category: "",
     },
-    validationSchema: AddUserSchema,
+    validationSchema: AddItemSchema,
     onSubmit: handleSubmit,
   });
 
@@ -109,13 +105,13 @@ const AddUserPage = () => {
             sx={{
               mb: 4,
             }}
-            onClick={() => navigate(UI_PATH_USER)}
+            onClick={() => navigate(UI_PATH_ITEM)}
           >
             Back
           </Button>
 
           <Typography variant="h3" textAlign={"center"} color={"s"}>
-            Add User
+            Add Item
           </Typography>
 
           <Box mt={5}>
@@ -138,7 +134,7 @@ const AddUserPage = () => {
                   variant="outlined"
                   id="name"
                   name="name"
-                  label="Full Name"
+                  label="Item Name"
                   value={formik.values.name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -150,67 +146,39 @@ const AddUserPage = () => {
                 <TextField
                   fullWidth
                   variant="outlined"
-                  id="username"
-                  name="username"
-                  label="Username"
-                  value={formik.values.username}
+                  id="price"
+                  name="price"
+                  label="Unit Price"
+                  value={formik.values.price}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.username && Boolean(formik.errors.username)
-                  }
-                  helperText={formik.touched.username && formik.errors.username}
+                  error={formik.touched.price && Boolean(formik.errors.price)}
+                  helperText={formik.touched.price && formik.errors.price}
                 />
               </Grid>
 
-              <Grid item width={"100%"}>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  id="password"
-                  name="password"
-                  label="Password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.password && Boolean(formik.errors.password)
-                  }
-                  helperText={formik.touched.password && formik.errors.password}
-                />
-              </Grid>
               <Grid item width={"100%"}>
                 <FormControl fullWidth>
-                  <InputLabel id="role-label">Role</InputLabel>
+                  <InputLabel id="category-label">Category</InputLabel>
                   <Select
-                    labelId="role-label"
-                    id="role"
-                    label="Role"
-                    name="role"
-                    value={formik.values.role}
+                    labelId="category-label"
+                    id="category"
+                    label="Category"
+                    name="category"
+                    value={formik.values.category}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.category && Boolean(formik.errors.category)
+                    }
                   >
-                    {user?.role === RoleEnum.SUPER_ADMIN &&
-                      userRoles
-                        ?.filter((role) =>
-                          role == RoleEnum.SUPER_ADMIN ? false : true
-                        )
-                        .map((role) => (
-                          <MenuItem value={role}>{role}</MenuItem>
-                        ))}
-
-                    {user?.role === RoleEnum.ADMIN &&
-                      userRoles
-                        ?.filter((role) =>
-                          role === RoleEnum.SUPER_ADMIN ||
-                          role === RoleEnum.ADMIN
-                            ? false
-                            : true
-                        )
-                        .map((role) => (
-                          <MenuItem value={role}>{role}</MenuItem>
-                        ))}
+                    {categories.map((category) => (
+                      <MenuItem value={category.name}>{category.name}</MenuItem>
+                    ))}
                   </Select>
+                  <FormHelperText error>
+                    {formik.touched.category && formik.errors.category}
+                  </FormHelperText>
                 </FormControl>
               </Grid>
               <Grid item width={"100%"}>
@@ -224,7 +192,7 @@ const AddUserPage = () => {
                   }}
                   fullWidth
                 >
-                  Add User
+                  Add Item
                 </Button>
               </Grid>
             </Grid>
@@ -235,4 +203,4 @@ const AddUserPage = () => {
   );
 };
 
-export default AddUserPage;
+export default AddItemPage;

@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
@@ -13,52 +14,54 @@ import {
 import TopBar from "../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate, useParams } from "react-router-dom";
-import { UI_PATH_USER } from "../constants/paths";
-import { useUserDetails } from "../providers/UserProvider";
+import { UI_PATH_ITEM } from "../constants/paths";
 import { useEffect, useState } from "react";
 import axios, { HttpStatusCode } from "axios";
 import { useAuth } from "../providers/AuthProvider";
 import { toast } from "react-toastify";
-import { RoleEnum } from "../constants/enum/RoleEnum";
-import { useFormik } from "formik";
-import { IUserUpdateFormField } from "../types/FormFieldTypes";
-import { IUserResponse } from "../types/ResponseTypes";
 import {
-  GET_ALL_USER_ROLES_URL,
-  GET_ALL_USER_STATUSES_URL,
-  PUT_UPDATE_USER_URL,
+  IItemAddFormField,
+  IItemUpdateFormField,
+} from "../types/FormFieldTypes";
+import { IItemCategoryResponse, IItemResponse } from "../types/ResponseTypes";
+import {
+  GET_ALL_ITEM_CATEGORIES_URL,
+  GET_ALL_ITEM_STATUSES_URL,
+  POST_CREATE_ITEM_URL,
+  PUT_UPDATE_ITEM_URL,
 } from "../constants/requestUrls";
-import useFetchUserById from "../hook/useFetchUserById";
-import { UpdateUserSchema } from "../schema/UpdateUserSchema";
+import { AddItemSchema } from "../schema/AddItemSchema";
+import { useFormik } from "formik";
+import useFetchItemById from "../hook/useFetchItemById";
+import { UpdateItemSchema } from "../schema/UpdateItemSchema";
 
-const UpdateUserPage = () => {
+const UpdateItemPage = () => {
   const navigate = useNavigate();
-  const { token } = useAuth();
-  const { user } = useUserDetails();
-  const [userRoles, setUserRoles] = useState<string[]>();
-  const [userStatus, setUserStatus] = useState<string[]>();
-  const [updatingUser, setUpdatingUser] = useState<IUserResponse>({
-    id: 0,
-    fullName: "",
-    role: "",
-    username: "",
-    status: "",
-    isAccountNonExpired: true,
-    isAccountNonLocked: true,
-    isCredentialsNonExpired: true,
-    isEnable: true,
-  });
   const { id } = useParams();
-  const { loading, fetchedUser, error } = useFetchUserById(Number(id));
+  const { token } = useAuth();
+  const [updatingItem, setUpdatingItem] = useState<IItemResponse>({
+    id: 0,
+    category: "",
+    createdAt: new Date(),
+    name: "",
+    qty: 0,
+    status: "",
+    unitPrice: 0,
+    updatedAt: new Date(),
+  });
+  const [statuses, setStatuses] = useState<string[]>([]);
+  const [categories, setCategories] = useState<IItemCategoryResponse[]>([]);
+
+  const { loading, item, error } = useFetchItemById(Number(id));
 
   useEffect(() => {
     axios
-      .get<string[]>(GET_ALL_USER_ROLES_URL, {
+      .get<IItemCategoryResponse[]>(GET_ALL_ITEM_CATEGORIES_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => setUserRoles(response.data))
+      .then((response) => setCategories(response.data))
       .catch((error) => {
         if (axios.isAxiosError(error)) {
           console.log(error);
@@ -67,12 +70,12 @@ const UpdateUserPage = () => {
       });
 
     axios
-      .get<string[]>(GET_ALL_USER_STATUSES_URL, {
+      .get<string[]>(GET_ALL_ITEM_STATUSES_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => setUserStatus(response.data))
+      .then((response) => setStatuses(response.data))
       .catch((error) => {
         if (axios.isAxiosError(error)) {
           console.log(error);
@@ -82,34 +85,30 @@ const UpdateUserPage = () => {
   }, []);
 
   useEffect(() => {
-    if (!loading && !error && fetchedUser) {
-      console.log(fetchedUser);
+    if (!loading && !error && item) {
+      console.log(item);
 
-      setUpdatingUser({
-        ...fetchedUser,
-      });
+      setUpdatingItem(item);
     }
-  }, [error, loading, fetchedUser, updatingUser]);
+  }, [error, loading, item, updatingItem]);
 
-  const handleSubmit = (values: IUserUpdateFormField) => {
+  const handleSubmit = (values: IItemUpdateFormField) => {
     const data = {
-      id: id,
-      fullName: values.name,
-      username: values.username,
-      password: values.password === "" ? null : values.password,
-      role: values.role,
+      name: values.name,
+      unitPrice: values.price,
+      category: values.category,
       status: values.status,
     };
     axios
-      .put<IUserResponse>(`${PUT_UPDATE_USER_URL}/${id}`, data, {
+      .put<IItemResponse>(`${PUT_UPDATE_ITEM_URL}/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
         if (response.status === HttpStatusCode.Ok) {
-          navigate(UI_PATH_USER);
-          toast.success("User Updated");
+          navigate(UI_PATH_ITEM);
+          toast.success(`Item Updated: ${response.data.name}`);
         }
       })
       .catch((error) => {
@@ -126,13 +125,12 @@ const UpdateUserPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: updatingUser.fullName,
-      username: updatingUser.username,
-      password: "",
-      role: updatingUser.role,
-      status: updatingUser.status,
+      name: updatingItem.name,
+      price: updatingItem.unitPrice,
+      category: updatingItem.category,
+      status: updatingItem.status,
     },
-    validationSchema: UpdateUserSchema,
+    validationSchema: UpdateItemSchema,
     onSubmit: handleSubmit,
     enableReinitialize: true,
   });
@@ -153,13 +151,13 @@ const UpdateUserPage = () => {
             sx={{
               mb: 4,
             }}
-            onClick={() => navigate(UI_PATH_USER)}
+            onClick={() => navigate(UI_PATH_ITEM)}
           >
             Back
           </Button>
 
           <Typography variant="h3" textAlign={"center"} color={"s"}>
-            Update User
+            Update Item
           </Typography>
 
           <Box mt={5}>
@@ -182,7 +180,7 @@ const UpdateUserPage = () => {
                   variant="outlined"
                   id="name"
                   name="name"
-                  label="Full Name"
+                  label="Item Name"
                   value={formik.values.name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -194,69 +192,42 @@ const UpdateUserPage = () => {
                 <TextField
                   fullWidth
                   variant="outlined"
-                  id="username"
-                  name="username"
-                  label="Username"
-                  value={formik.values.username}
+                  id="price"
+                  name="price"
+                  label="Unit Price"
+                  value={formik.values.price}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.username && Boolean(formik.errors.username)
-                  }
-                  helperText={formik.touched.username && formik.errors.username}
+                  error={formik.touched.price && Boolean(formik.errors.price)}
+                  helperText={formik.touched.price && formik.errors.price}
                 />
               </Grid>
 
-              <Grid item width={"100%"}>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  id="password"
-                  name="password"
-                  label="Password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.password && Boolean(formik.errors.password)
-                  }
-                  helperText={formik.touched.password && formik.errors.password}
-                />
-              </Grid>
               <Grid item width={"100%"}>
                 <FormControl fullWidth>
-                  <InputLabel id="role-label">Role</InputLabel>
+                  <InputLabel id="category-label">Category</InputLabel>
                   <Select
-                    labelId="role-label"
-                    id="role"
-                    label="Role"
-                    name="role"
-                    value={formik.values.role}
+                    labelId="category-label"
+                    id="category"
+                    label="Category"
+                    name="category"
+                    value={formik.values.category}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.category && Boolean(formik.errors.category)
+                    }
                   >
-                    {user?.role === RoleEnum.SUPER_ADMIN &&
-                      userRoles
-                        ?.filter((role) =>
-                          role == RoleEnum.SUPER_ADMIN ? false : true
-                        )
-                        .map((role) => (
-                          <MenuItem value={role}>{role}</MenuItem>
-                        ))}
-
-                    {user?.role === RoleEnum.ADMIN &&
-                      userRoles
-                        ?.filter((role) =>
-                          role === RoleEnum.SUPER_ADMIN ||
-                          role === RoleEnum.ADMIN
-                            ? false
-                            : true
-                        )
-                        .map((role) => (
-                          <MenuItem value={role}>{role}</MenuItem>
-                        ))}
+                    {categories.map((category) => (
+                      <MenuItem value={category.name}>{category.name}</MenuItem>
+                    ))}
                   </Select>
+                  <FormHelperText error>
+                    {formik.touched.category && formik.errors.category}
+                  </FormHelperText>
                 </FormControl>
               </Grid>
+
               <Grid item width={"100%"}>
                 <FormControl fullWidth>
                   <InputLabel id="status-label">Status</InputLabel>
@@ -267,11 +238,18 @@ const UpdateUserPage = () => {
                     name="status"
                     value={formik.values.status}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.status && Boolean(formik.errors.status)
+                    }
                   >
-                    {userStatus?.map((status) => (
+                    {statuses.map((status) => (
                       <MenuItem value={status}>{status}</MenuItem>
                     ))}
                   </Select>
+                  <FormHelperText error>
+                    {formik.touched.status && formik.errors.status}
+                  </FormHelperText>
                 </FormControl>
               </Grid>
               <Grid item width={"100%"}>
@@ -285,7 +263,7 @@ const UpdateUserPage = () => {
                   }}
                   fullWidth
                 >
-                  Update User
+                  Update Item
                 </Button>
               </Grid>
             </Grid>
@@ -296,4 +274,4 @@ const UpdateUserPage = () => {
   );
 };
 
-export default UpdateUserPage;
+export default UpdateItemPage;

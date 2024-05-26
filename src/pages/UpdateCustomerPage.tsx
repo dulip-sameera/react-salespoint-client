@@ -158,7 +158,7 @@ const UpdateCustomerPage = () => {
                   size="large"
                   type="submit"
                 >
-                  Add Customer
+                  Update Customer
                 </Button>
               </Grid>
             </Grid>

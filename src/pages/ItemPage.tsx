@@ -17,54 +17,56 @@ import TopBar from "../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
-import { CUSTOMER_TABLE_HEADERS } from "../constants/enum/tableHeaders";
-import useFetchAllCustomers from "../hook/useFetchAllCustomers";
+import { ITEM_TABLE_HEADERS } from "../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
 import { CustomerStatus } from "../constants/enum/CustomerStatus";
 import { useUserDetails } from "../providers/UserProvider";
 import { RoleEnum } from "../constants/enum/RoleEnum";
-import isUserHavePermission from "../utils/checkRoleIncludes";
-import { ICustomerResponse } from "../types/ResponseTypes";
-import axios from "axios";
+import checkRoleIncludes from "../utils/checkRoleIncludes";
+import { IItemResponse } from "../types/ResponseTypes";
+import axios, { HttpStatusCode } from "axios";
 import { useAuth } from "../providers/AuthProvider";
-import {
-  DELETE_CUSTOMER_URL,
-  GET_ALL_CUSTOMERS_URL,
-  GET_CUSTOMER_BY_PHONE_URL,
-} from "../constants/requestUrls";
+import { DELETE_ITEM_URL, GET_ALL_ITEMS_URL } from "../constants/requestUrls";
 import { Link, useNavigate } from "react-router-dom";
-import { UI_PATH_UPDATE_CUSTOMER, UI_PATH_HOME } from "../constants/paths";
+import {
+  UI_PATH_ADD_ITEM,
+  UI_PATH_HOME,
+  UI_PATH_ITEM_CATEGORY,
+  UI_PATH_UPDATE_ITEM,
+} from "../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import useFetchAllItems from "../hook/useFetchAllItems";
+import isUserHavePermission from "../utils/checkRoleIncludes";
 
-const tableHeaders = Object.values(CUSTOMER_TABLE_HEADERS);
+const tableHeaders = Object.values(ITEM_TABLE_HEADERS);
 
-const CustomerPage = () => {
+const ItemPage = () => {
   const [searchText, setSearchText] = useState("");
   const [refresh, setRefresh] = useState(false);
-  const [tableData, setTableData] = useState<ICustomerResponse[] | null>(null);
-  const { loading, customers, error } = useFetchAllCustomers();
+  const [tableData, setTableData] = useState<IItemResponse[] | null>(null);
+  const { loading, items, error } = useFetchAllItems();
   const { user } = useUserDetails();
   const { token } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!loading && !error) {
-      setTableData(customers);
+      setTableData(items);
     }
 
     if (!loading && error) {
       toast.error(error.message);
       console.log(error);
     }
-  }, [loading, error, customers]);
+  }, [loading, error, items]);
 
   const handleSearch = () => {
-    fetchCustomer(searchText);
+    fetchItem(searchText);
   };
 
   useEffect(() => {
     axios
-      .get<ICustomerResponse[]>(GET_ALL_CUSTOMERS_URL, {
+      .get<IItemResponse[]>(GET_ALL_ITEMS_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -72,41 +74,43 @@ const CustomerPage = () => {
       .then((response) => setTableData(response.data));
   }, [refresh]);
 
-  const fetchCustomer = (phone: string) => {
-    axios
-      .get<ICustomerResponse>(`${GET_CUSTOMER_BY_PHONE_URL}${phone}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setTableData([response.data]);
-      })
-      .catch((error) => {
-        if (axios.isAxiosError(error)) {
-          toast.error(error.response.data.description, { theme: "colored" });
-          console.log(error);
-        }
-      });
+  const fetchItem = (itemName: string) => {
+    toast.warning("Not Implemented Yet");
+
+    // axios
+    //   .get<IUserResponse>(`${GET_CUSTOMER_BY_PHONE_URL}${phone}`, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //   .then((response) => {
+    //     setTableData([response.data]);
+    //   })
+    //   .catch((error) => {
+    //     if (axios.isAxiosError(error)) {
+    //       toast.error(error.response.data.description, { theme: "colored" });
+    //       console.log(error);
+    //     }
+    //   });
   };
 
   const handleDelete = (id: number) => {
     axios
-      .delete<string>(`${DELETE_CUSTOMER_URL}/${id}`, {
+      .delete<string>(`${DELETE_ITEM_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        if (response.status == 204) {
-          toast.success(response.data);
+        if (response.status == HttpStatusCode.NoContent) {
+          toast.success("Item Deleted");
           setRefresh((prev) => !prev);
         }
       })
       .catch((error) => {
         if (axios.isAxiosError(error)) {
           console.log(error);
-          if (error.status == 500) {
+          if (error.status == HttpStatusCode.InternalServerError) {
             toast.error(error.response?.data.detail);
           } else {
             toast.error(error.response?.data.description);
@@ -138,7 +142,7 @@ const CustomerPage = () => {
           </Button>
 
           <Typography variant="h4" sx={{ fontSize: { xs: 26, sm: 34 } }}>
-            Customer Management
+            Item Management
           </Typography>
 
           <Divider sx={{ backgroundColor: "#CFFC86" }} />
@@ -157,16 +161,17 @@ const CustomerPage = () => {
                 mb: { xs: 2, sm: 0 },
                 display: "flex",
                 justifyContent: "space-between",
+                flexDirection: { xs: "column", sm: "row" },
+                gap: 2,
               }}
             >
               <TextField
                 id="search-text"
-                label="Phone No"
+                label="Item Name"
                 variant="outlined"
                 size="small"
                 value={searchText}
                 sx={{
-                  mr: 3,
                   flexGrow: 1,
                 }}
                 onChange={(event) => setSearchText(event.target.value)}
@@ -185,19 +190,41 @@ const CustomerPage = () => {
                 color="success"
                 startIcon={<RefreshIcon />}
                 onClick={() => setRefresh((prev) => !prev)}
-                sx={{ ml: 2 }}
+                sx={{ flexGrow: 1 }}
               >
                 Refresh
               </Button>
             </Box>
 
-            <Button
-              variant="contained"
-              color="success"
-              onClick={() => navigate("/customer/add")}
+            <Box
+              display={"flex"}
+              flexDirection={{ xs: "column", sm: "row" }}
+              gap={2}
             >
-              Add Customer
-            </Button>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={() => navigate(UI_PATH_ITEM_CATEGORY)}
+              >
+                Item Category
+              </Button>
+
+              {user &&
+                isUserHavePermission(user.role, [
+                  RoleEnum.SUPER_ADMIN,
+                  RoleEnum.ADMIN,
+                  RoleEnum.MANAGER,
+                  RoleEnum.CLERK,
+                ]) && (
+                  <Button
+                    variant="contained"
+                    color="success"
+                    onClick={() => navigate(UI_PATH_ADD_ITEM)}
+                  >
+                    Add Item
+                  </Button>
+                )}
+            </Box>
           </Box>
         </Box>
 
@@ -221,11 +248,20 @@ const CustomerPage = () => {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell>{tableDataItem.id}</TableCell>
-                    <TableCell>{tableDataItem.fullName}</TableCell>
-                    <TableCell>{tableDataItem.phone}</TableCell>
+                    <TableCell>{tableDataItem.name}</TableCell>
+                    <TableCell>{tableDataItem.unitPrice}</TableCell>
+                    <TableCell>{tableDataItem.qty}</TableCell>
                     <TableCell>{tableDataItem.status}</TableCell>
+                    <TableCell>{tableDataItem.category}</TableCell>
                     <TableCell>
-                      {
+                      {user &&
+                      checkRoleIncludes(user.role, [
+                        RoleEnum.ADMIN,
+                        RoleEnum.SUPER_ADMIN,
+                        RoleEnum.MANAGER,
+                        RoleEnum.CLERK,
+                      ]) &&
+                      tableDataItem.status !== CustomerStatus.DELETE ? (
                         <Box
                           sx={{
                             display: "flex",
@@ -235,32 +271,23 @@ const CustomerPage = () => {
                           }}
                         >
                           <Link
-                            to={`${UI_PATH_UPDATE_CUSTOMER}/${tableDataItem.id}`}
+                            to={`${UI_PATH_UPDATE_ITEM}/${tableDataItem.id}`}
                           >
                             <Button variant="contained" color="warning">
                               Update
                             </Button>
                           </Link>
-                          {user &&
-                          isUserHavePermission(user.role, [
-                            RoleEnum.ADMIN,
-                            RoleEnum.CLERK,
-                            RoleEnum.MANAGER,
-                            RoleEnum.SUPER_ADMIN,
-                          ]) &&
-                          tableDataItem.status !== CustomerStatus.DELETE ? (
-                            <Button
-                              variant="contained"
-                              color="error"
-                              onClick={() => handleDelete(tableDataItem.id)}
-                            >
-                              Delete
-                            </Button>
-                          ) : (
-                            <></>
-                          )}
+                          <Button
+                            variant="contained"
+                            color="error"
+                            onClick={() => handleDelete(tableDataItem.id)}
+                          >
+                            Delete
+                          </Button>
                         </Box>
-                      }
+                      ) : (
+                        <></>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -272,4 +299,4 @@ const CustomerPage = () => {
   );
 };
 
-export default CustomerPage;
+export default ItemPage;

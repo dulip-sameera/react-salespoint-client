@@ -22,9 +22,9 @@ import { toast } from "react-toastify";
 import { CustomerStatus } from "../constants/enum/CustomerStatus";
 import { useUserDetails } from "../providers/UserProvider";
 import { RoleEnum } from "../constants/enum/RoleEnum";
-import checkRoleIncludes from "../utils/checkRoleIncludes";
+import isUserHavePermission from "../utils/checkRoleIncludes";
 import { IUserResponse } from "../types/ResponseTypes";
-import axios from "axios";
+import axios, { HttpStatusCode } from "axios";
 import { useAuth } from "../providers/AuthProvider";
 import { DELETE_USER_URL, GET_ALL_USERS_URL } from "../constants/requestUrls";
 import { Link, useNavigate } from "react-router-dom";
@@ -100,15 +100,15 @@ const UserPage = () => {
         },
       })
       .then((response) => {
-        if (response.status == 204) {
-          toast.success(response.data);
+        if (response.status == HttpStatusCode.NoContent) {
+          toast.success("User Deleted");
           setRefresh((prev) => !prev);
         }
       })
       .catch((error) => {
         if (axios.isAxiosError(error)) {
           console.log(error);
-          if (error.status == 500) {
+          if (error.status == HttpStatusCode.InternalServerError) {
             toast.error(error.response?.data.detail);
           } else {
             toast.error(error.response?.data.description);
@@ -245,7 +245,7 @@ const UserPage = () => {
                             </Button>
                           </Link>
                           {user &&
-                          checkRoleIncludes(user.role, [
+                          isUserHavePermission(user.role, [
                             RoleEnum.ADMIN,
                             RoleEnum.SUPER_ADMIN,
                           ]) &&

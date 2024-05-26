@@ -1,17 +1,32 @@
 export enum CUSTOMER_TABLE_HEADERS {
-    ID = "ID",
-    FULL_NAME = "FULL NAME",
-    PHONE = "PHONE NO",
-    STATUS = "STATUS",
-    ACTIONS = "ACTIONS"
+  ID = "ID",
+  FULL_NAME = "FULL NAME",
+  PHONE = "PHONE NO",
+  STATUS = "STATUS",
+  ACTIONS = "ACTIONS",
 }
 
-
 export enum USER_TABLE_HEADERS {
-    ID ="ID",
-    FULL_NAME ="FULL NAME",
-    USERNAME = "USERNAME",
-    ROLE = "ROLE",
-    STATUS = "STATUS",
-    ACTION = "ACTION"
+  ID = "ID",
+  FULL_NAME = "FULL NAME",
+  USERNAME = "USERNAME",
+  ROLE = "ROLE",
+  STATUS = "STATUS",
+  ACTIONS = "ACTIONS",
+}
+
+export enum ITEM_TABLE_HEADERS {
+  ID = "ID",
+  NAME = "NAME",
+  UNIT_PRICE = "UNIT PRICE",
+  QUANTITY = "QUANTITY",
+  STATUS = "STATUS",
+  CATEGORY = "CATEGORY",
+  ACTIONS = "ACTIONS",
+}
+
+export enum ITEM_CATEGORY_TABLE_HEADERS {
+  ID = "ID",
+  NAME = "NAME",
+  ACTIONS = "ACTIONS",
 }

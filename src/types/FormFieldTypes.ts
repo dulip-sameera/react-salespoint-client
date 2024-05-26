@@ -22,3 +22,20 @@ export interface IUserUpdateFormField {
   role: string;
   status: string;
 }
+
+export interface IItemCategoryFormField {
+  name: string;
+}
+
+export interface IItemAddFormField {
+  name: string;
+  price: number;
+  category: string;
+}
+
+export interface IItemUpdateFormField {
+  name: string;
+  price: number;
+  category: string;
+  status: string;
+}
