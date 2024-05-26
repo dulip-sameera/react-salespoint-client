@@ -43,6 +43,7 @@ import StockDetailsPage from "./pages/StockDetailsPage";
 import OrderPage from "./pages/OrderPage";
 import AddOrderPage from "./pages/AddOrderPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
+import ProtectedRoute from "./utils/routes/ProtectedRoute";
 
 const App = () => {
   return (
@@ -53,42 +54,47 @@ const App = () => {
           {["/", UI_PATH_LOGIN].map((path, id) => (
             <Route key={id} path={path} element={<LoginPage />} />
           ))}
-          <Route path={UI_PATH_HOME} element={<HomePage />} />
-          <Route path={UI_PATH_CUSTOMER} element={<CustomerPage />} />
-          <Route path={UI_PATH_ADD_CUSTOMER} element={<AddCustomerPage />} />
-          <Route
-            path={`${UI_PATH_UPDATE_CUSTOMER}/:id`}
-            element={<UpdateCustomerPage />}
-          />
-          <Route path={UI_PATH_USER} element={<UserPage />} />
-          <Route path={UI_PATH_ADD_USER} element={<AddUserPage />} />s
-          <Route
-            path={`${UI_PATH_UPDATE_USER}/:id`}
-            element={<UpdateUserPage />}
-          />
-          <Route path={UI_PATH_ITEM} element={<ItemPage />} />
-          <Route path={UI_PATH_ADD_ITEM} element={<AddItemPage />} />
-          <Route
-            path={`${UI_PATH_UPDATE_ITEM}/:id`}
-            element={<UpdateItemPage />}
-          />
-          <Route path={UI_PATH_ITEM_CATEGORY} element={<ItemCategoryPage />} />
-          <Route path={UI_PATH_STOCK} element={<StockPage />} />
-          <Route path={UI_PATH_ADD_STOCK} element={<AddStockPage />} />
-          <Route
-            path={`${UI_PATH_MORE_STOCK}/:id`}
-            element={<StockDetailsPage />}
-          />
-          <Route path={UI_PATH_ORDER} element={<OrderPage />} />
-          <Route path={UI_PATH_CREATE_ORDER} element={<AddOrderPage />} />
-          <Route
-            path={`${UI_PATH_DETAILS_ORDER}/:id`}
-            element={<OrderDetailsPage />}
-          />
-          <Route
-            path={`${UI_PATH_UPDATE_ORDER}/:id`}
-            element={<OrderDetailsPage />}
-          />
+          <Route element={<ProtectedRoute />}>
+            <Route path={UI_PATH_HOME} element={<HomePage />} />
+            <Route path={UI_PATH_CUSTOMER} element={<CustomerPage />} />
+            <Route path={UI_PATH_ADD_CUSTOMER} element={<AddCustomerPage />} />
+            <Route
+              path={`${UI_PATH_UPDATE_CUSTOMER}/:id`}
+              element={<UpdateCustomerPage />}
+            />
+            <Route path={UI_PATH_USER} element={<UserPage />} />
+            <Route path={UI_PATH_ADD_USER} element={<AddUserPage />} />s
+            <Route
+              path={`${UI_PATH_UPDATE_USER}/:id`}
+              element={<UpdateUserPage />}
+            />
+            <Route path={UI_PATH_ITEM} element={<ItemPage />} />
+            <Route path={UI_PATH_ADD_ITEM} element={<AddItemPage />} />
+            <Route
+              path={`${UI_PATH_UPDATE_ITEM}/:id`}
+              element={<UpdateItemPage />}
+            />
+            <Route
+              path={UI_PATH_ITEM_CATEGORY}
+              element={<ItemCategoryPage />}
+            />
+            <Route path={UI_PATH_STOCK} element={<StockPage />} />
+            <Route path={UI_PATH_ADD_STOCK} element={<AddStockPage />} />
+            <Route
+              path={`${UI_PATH_MORE_STOCK}/:id`}
+              element={<StockDetailsPage />}
+            />
+            <Route path={UI_PATH_ORDER} element={<OrderPage />} />
+            <Route path={UI_PATH_CREATE_ORDER} element={<AddOrderPage />} />
+            <Route
+              path={`${UI_PATH_DETAILS_ORDER}/:id`}
+              element={<OrderDetailsPage />}
+            />
+            <Route
+              path={`${UI_PATH_UPDATE_ORDER}/:id`}
+              element={<OrderDetailsPage />}
+            />
+          </Route>
           <Route path="/test" element={<Test />} />
         </Routes>
         <ToastContainer theme="colored" />
