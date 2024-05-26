@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { IItemResponse } from "../types/ResponseTypes";
+import { IOrderResponse } from "../types/ResponseTypes";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { GET_ALL_ITEMS_URL } from "../constants/requestUrls";
+import { GET_ORDER_BY_ID_URL } from "../constants/requestUrls";
 
-const useFetchAllItems = () => {
+const useFetchOrderById = (id: number) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<AxiosError<any>>();
-  const [items, setItems] = useState<IItemResponse[] | null>(null);
+  const [error, setError] = useState<AxiosError>();
+  const [order, setOrder] = useState<IOrderResponse | null>(null);
 
   const { token } = useAuth();
 
-  useEffect(() => {
+  const loadOrder = () => {
     setLoading(true);
 
     if (!token) {
@@ -19,7 +19,7 @@ const useFetchAllItems = () => {
     }
 
     axios
-      .get<IItemResponse[]>(GET_ALL_ITEMS_URL, {
+      .get<IOrderResponse>(`${GET_ORDER_BY_ID_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -27,7 +27,7 @@ const useFetchAllItems = () => {
       .then((response) => {
         const data = response.data;
 
-        setItems(data);
+        setOrder(data);
       })
       .catch((error) => {
         if (axios.isAxiosError(error)) {
@@ -38,9 +38,13 @@ const useFetchAllItems = () => {
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    loadOrder();
   }, []);
 
-  return { loading, items, error };
+  return { loading, order, loadOrder, error };
 };
 
-export default useFetchAllItems;
+export default useFetchOrderById;

@@ -9,15 +9,19 @@ import {
   UI_PATH_ADD_ITEM,
   UI_PATH_ADD_STOCK,
   UI_PATH_ADD_USER,
+  UI_PATH_CREATE_ORDER,
   UI_PATH_CUSTOMER,
+  UI_PATH_DETAILS_ORDER,
   UI_PATH_HOME,
   UI_PATH_ITEM,
   UI_PATH_ITEM_CATEGORY,
   UI_PATH_LOGIN,
   UI_PATH_MORE_STOCK,
+  UI_PATH_ORDER,
   UI_PATH_STOCK,
   UI_PATH_UPDATE_CUSTOMER,
   UI_PATH_UPDATE_ITEM,
+  UI_PATH_UPDATE_ORDER,
   UI_PATH_UPDATE_USER,
   UI_PATH_USER,
 } from "./constants/paths";
@@ -36,6 +40,9 @@ import UpdateItemPage from "./pages/UpdateItemPage";
 import StockPage from "./pages/StockPage";
 import AddStockPage from "./pages/AddStockPage";
 import StockDetailsPage from "./pages/StockDetailsPage";
+import OrderPage from "./pages/OrderPage";
+import AddOrderPage from "./pages/AddOrderPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
 
 const App = () => {
   return (
@@ -71,6 +78,16 @@ const App = () => {
           <Route
             path={`${UI_PATH_MORE_STOCK}/:id`}
             element={<StockDetailsPage />}
+          />
+          <Route path={UI_PATH_ORDER} element={<OrderPage />} />
+          <Route path={UI_PATH_CREATE_ORDER} element={<AddOrderPage />} />
+          <Route
+            path={`${UI_PATH_DETAILS_ORDER}/:id`}
+            element={<OrderDetailsPage />}
+          />
+          <Route
+            path={`${UI_PATH_UPDATE_ORDER}/:id`}
+            element={<OrderDetailsPage />}
           />
           <Route path="/test" element={<Test />} />
         </Routes>

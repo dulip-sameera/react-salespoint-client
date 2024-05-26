@@ -43,3 +43,12 @@ export const GET_ALL_STOCKS_BY_ITEM_URL = `${DOMAIN}/${STOCK}/item`;
 export const POST_CREATE_STOCK_URL = `${DOMAIN}/${STOCK}`;
 export const PUT_UPDATE_STOCK_URL = `${DOMAIN}/${STOCK}`;
 export const DELETE_STOCK_URL = `${DOMAIN}/${STOCK}`;
+
+const ORDER = "orders";
+export const GET_ALL_ORDERS_URL = `${DOMAIN}/${ORDER}`;
+export const GET_ORDER_BY_ID_URL = `${DOMAIN}/${ORDER}`;
+export const POST_CREATE_ORDER_URL = `${DOMAIN}/${ORDER}`;
+export const POST_ORDER_ADD_ITEM_URL = `${DOMAIN}/${ORDER}/add-item`;
+export const POST_ORDER_REMOVE_ITEM_URL = `${DOMAIN}/${ORDER}/remove-item`;
+export const PUT_UPDATE_PAID_STATUS_URL = `${DOMAIN}/${ORDER}/pay`;
+export const DELETE_ORDER_URL = `${DOMAIN}/${ORDER}`;

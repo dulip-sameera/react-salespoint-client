@@ -14,6 +14,9 @@ export const UI_PATH_ADD_STOCK = "/stock/add";
 export const UI_PATH_MORE_STOCK = "/stock/more";
 
 export const UI_PATH_ORDER = "/order";
+export const UI_PATH_CREATE_ORDER = "/order/create";
+export const UI_PATH_DETAILS_ORDER = "/order/details";
+export const UI_PATH_UPDATE_ORDER = "/order/update";
 
 export const UI_PATH_CUSTOMER = "/customer";
 export const UI_PATH_ADD_CUSTOMER = "/customer/add";
