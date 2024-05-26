@@ -74,7 +74,7 @@ const CustomerPage = () => {
 
   const fetchCustomer = (phone: string) => {
     axios
-      .get<ICustomerResponse>(`${GET_CUSTOMER_BY_PHONE_URL}${phone}`, {
+      .get<ICustomerResponse>(`${GET_CUSTOMER_BY_PHONE_URL}/${phone}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
