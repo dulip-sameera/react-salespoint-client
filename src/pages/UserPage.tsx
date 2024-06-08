@@ -35,6 +35,7 @@ import {
 } from "../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import useFetchAllUsers from "../hook/useFetchAllUsers";
+import { Status } from "../constants/enum/StatusEnum";
 
 const tableHeaders = Object.values(USER_TABLE_HEADERS);
 
@@ -228,40 +229,78 @@ const UserPage = () => {
                     <TableCell>{tableDataItem.role}</TableCell>
                     <TableCell>{tableDataItem.status}</TableCell>
                     <TableCell>
-                      {
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexGrow: 1,
-                            gap: 1,
-                            flexDirection: { xs: "column", sm: "row" },
-                          }}
-                        >
-                          <Link
-                            to={`${UI_PATH_UPDATE_USER}/${tableDataItem.id}`}
+                      {/* display if the logged in user is the SUPER ADMIN */}
+                      {user &&
+                        isUserHavePermission(user.role, [
+                          RoleEnum.SUPER_ADMIN,
+                        ]) && (
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexGrow: 1,
+                              gap: 1,
+                              flexDirection: { xs: "column", sm: "row" },
+                            }}
                           >
-                            <Button variant="contained" color="warning">
-                              Update
-                            </Button>
-                          </Link>
-                          {user &&
-                          isUserHavePermission(user.role, [
-                            RoleEnum.ADMIN,
-                            RoleEnum.SUPER_ADMIN,
-                          ]) &&
-                          tableDataItem.status !== CustomerStatus.DELETE ? (
-                            <Button
-                              variant="contained"
-                              color="error"
-                              onClick={() => handleDelete(tableDataItem.id)}
+                            <Link
+                              to={`${UI_PATH_UPDATE_USER}/${tableDataItem.id}`}
                             >
-                              Delete
-                            </Button>
-                          ) : (
-                            <></>
-                          )}
-                        </Box>
-                      }
+                              <Button variant="contained" color="warning">
+                                Update
+                              </Button>
+                            </Link>
+
+                            {tableDataItem.role !== RoleEnum.SUPER_ADMIN &&
+                              tableDataItem.status !== Status.DELETE && (
+                                <Button
+                                  variant="contained"
+                                  color="error"
+                                  onClick={() => handleDelete(tableDataItem.id)}
+                                >
+                                  Delete
+                                </Button>
+                              )}
+                          </Box>
+                        )}
+
+                      {/* display if the logged in user is an ADMIN */}
+                      {user &&
+                        isUserHavePermission(user.role, [RoleEnum.ADMIN]) && (
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexGrow: 1,
+                              gap: 1,
+                              flexDirection: { xs: "column", sm: "row" },
+                            }}
+                          >
+                            {!["SUPER_ADMIN", "ADMIN"].includes(
+                              tableDataItem.role
+                            ) && (
+                              <>
+                                <Link
+                                  to={`${UI_PATH_UPDATE_USER}/${tableDataItem.id}`}
+                                >
+                                  <Button variant="contained" color="warning">
+                                    Update
+                                  </Button>
+                                </Link>
+
+                                {tableDataItem.status !== Status.DELETE && (
+                                  <Button
+                                    variant="contained"
+                                    color="error"
+                                    onClick={() =>
+                                      handleDelete(tableDataItem.id)
+                                    }
+                                  >
+                                    Delete
+                                  </Button>
+                                )}
+                              </>
+                            )}
+                          </Box>
+                        )}
                     </TableCell>
                   </TableRow>
                 ))}
