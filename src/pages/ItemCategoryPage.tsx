@@ -28,6 +28,7 @@ import { useAuth } from "../providers/AuthProvider";
 import {
   DELETE_ITEM_CATEGORY_URL,
   GET_ALL_ITEM_CATEGORIES_URL,
+  GET_ITEM_CATEGORy_BY_NAME_URL,
   POST_CREATE_ITEM_CATEGORIES_URL,
   PUT_UPDATE_ITEM_CATEGORIES_URL,
 } from "../constants/requestUrls";
@@ -79,6 +80,7 @@ const ItemCategoryPage = () => {
         },
       })
       .then((response) => setTableData(response.data));
+    setSearchText("");
   }, [refreshState]);
 
   const refresh = () => setRefreshState((prev) => !prev);
@@ -176,23 +178,26 @@ const ItemCategoryPage = () => {
   });
 
   const fetchItemCategory = (itemCategoryName: string) => {
-    toast.warning("Not Implemented Yet");
-
-    // axios
-    //   .get<IUserResponse>(`${GET_CUSTOMER_BY_PHONE_URL}${phone}`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     setTableData([response.data]);
-    //   })
-    //   .catch((error) => {
-    //     if (axios.isAxiosError(error)) {
-    //       toast.error(error.response.data.description, { theme: "colored" });
-    //       console.log(error);
-    //     }
-    //   });
+    axios
+      .get<IItemCategoryResponse>(
+        `${GET_ITEM_CATEGORy_BY_NAME_URL}/find/${itemCategoryName}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => setTableData([response.data]))
+      .catch((error) => {
+        if (axios.isAxiosError(error)) {
+          console.log(error);
+          if (error.status == HttpStatusCode.InternalServerError) {
+            toast.error(error.response?.data.detail);
+          } else {
+            toast.error(error.response?.data.description);
+          }
+        }
+      });
   };
 
   const handleDelete = (id: number) => {
