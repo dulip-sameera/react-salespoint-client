@@ -6,19 +6,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate, useParams } from "react-router-dom";
-import { UI_PATH_CUSTOMER } from "../constants/paths";
+import { UI_PATH_CUSTOMER } from "../../constants/paths";
 import { useFormik } from "formik";
-import { AddCustomerSchema } from "../schema/AddCustomerSchema";
-import { ICustomerAddFormField } from "../types/FormFieldTypes";
+import { AddCustomerSchema } from "../../schema/AddCustomerSchema";
+import { ICustomerAddFormField } from "../../types/FormFieldTypes";
 import axios from "axios";
-import { useAuth } from "../providers/AuthProvider";
-import { ICustomerResponse } from "../types/ResponseTypes";
+import { useAuth } from "../../providers/AuthProvider";
+import { ICustomerResponse } from "../../types/ResponseTypes";
 import { toast } from "react-toastify";
-import { PUT_UPDATE_CUSTOMER_URL } from "../constants/requestUrls";
-import useFetchCustomersById from "../hook/useFetchCustomerById";
+import { CUSTOMERS_BASE_URL } from "../../constants/requestUrls";
+import useFetchCustomersById from "../../hook/useFetchCustomerById";
 import { useEffect, useState } from "react";
 
 const UpdateCustomerPage = () => {
@@ -50,7 +50,7 @@ const UpdateCustomerPage = () => {
       status: customer?.status,
     };
     axios
-      .put<ICustomerResponse>(`${PUT_UPDATE_CUSTOMER_URL}/${id}`, data, {
+      .put<ICustomerResponse>(`${CUSTOMERS_BASE_URL}/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -87,7 +87,7 @@ const UpdateCustomerPage = () => {
 
   if (!customer) return;
 
-  if (error) toast.error(error.response?.data.description);
+  if (error) toast.error("Error when getting the customer");
   return (
     <Container>
       <TopBar />

@@ -13,31 +13,31 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import {
   STOCK_DETAIL_TABLE_HEADERS,
   STOCK_TABLE_HEADERS,
-} from "../constants/enum/tableHeaders";
+} from "../../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
-import { useUserDetails } from "../providers/UserProvider";
-import { RoleEnum } from "../constants/enum/RoleEnum";
-import { IItemResponse } from "../types/ResponseTypes";
+import { useUserDetails } from "../../providers/UserProvider";
+import { RoleEnum } from "../../constants/enum/RoleEnum";
+import { IItemResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
-import { GET_ALL_ITEMS_URL } from "../constants/requestUrls";
+import { useAuth } from "../../providers/AuthProvider";
+import { ITEMS_BASE_URL } from "../../constants/requestUrls";
 import { Link, useNavigate } from "react-router-dom";
 import {
   UI_PATH_ADD_STOCK,
   UI_PATH_HOME,
   UI_PATH_MORE_STOCK,
-} from "../constants/paths";
+} from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import useFetchAllItems from "../hook/useFetchAllItems";
-import isUserHavePermission from "../utils/checkRoleIncludes";
-import { Status } from "../constants/enum/StatusEnum";
+import useFetchAllItems from "../../hook/useFetchAllItems";
+import isUserHavePermission from "../../utils/checkRoleIncludes";
+import { Status } from "../../constants/enum/StatusEnum";
 
 const tableHeaders = Object.values(STOCK_TABLE_HEADERS);
 
@@ -67,7 +67,7 @@ const StockPage = () => {
 
   useEffect(() => {
     axios
-      .get<IItemResponse[]>(GET_ALL_ITEMS_URL, {
+      .get<IItemResponse[]>(ITEMS_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -78,7 +78,7 @@ const StockPage = () => {
 
   const fetchItem = (itemName: string) => {
     axios
-      .get<IItemResponse>(`${GET_ALL_ITEMS_URL}/find/${itemName}`, {
+      .get<IItemResponse>(`${ITEMS_BASE_URL}/find/${itemName}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

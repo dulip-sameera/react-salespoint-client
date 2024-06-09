@@ -1,18 +1,18 @@
 import { Box, Button, Container, Divider, Typography } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import { useNavigate } from "react-router-dom";
-import { UI_PATH_ORDER } from "../constants/paths";
+import { UI_PATH_ORDER } from "../../constants/paths";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { IOrderResponse } from "../types/ResponseTypes";
+import { IOrderResponse } from "../../types/ResponseTypes";
 
 import { useState } from "react";
-import OrderItemAddForm from "../components/OrderItemAddForn";
-import OrderDetails from "../components/OrderDetails";
-import CreateOrderForm from "../components/CreateOrderForm";
+import OrderItemAddForm from "../../components/OrderItemAddForm";
+import OrderDetails from "../../components/OrderDetails";
+import CreateOrderForm from "../../components/CreateOrderForm";
 
-import OrderedItemsTable from "../components/OrderedItemTable";
+import OrderedItemsTable from "../../components/OrderedItemTable";
 
-import OrderPaymentSection from "../components/OrderPaymentSection";
+import OrderPaymentSection from "../../components/OrderPaymentSection";
 
 const AddOrderPage = () => {
   const [order, setOrder] = useState<IOrderResponse | null>(null);

@@ -8,7 +8,7 @@ import useFetchAllItems from "../hook/useFetchAllItems";
 import { useAuth } from "../providers/AuthProvider";
 import * as yup from "yup";
 import axios, { HttpStatusCode } from "axios";
-import { POST_ORDER_ADD_ITEM_URL } from "../constants/requestUrls";
+import { ORDERS_BASE_URL } from "../constants/requestUrls";
 import { toast } from "react-toastify";
 import { FormikConfig, FormikHelpers, useFormik } from "formik";
 import {
@@ -75,7 +75,7 @@ const OrderItemAddForm: FC<IOrderItemAddFormProps> = ({ order, setOrder }) => {
     };
 
     axios
-      .post(POST_ORDER_ADD_ITEM_URL, data, {
+      .post(`${ORDERS_BASE_URL}/add-item`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

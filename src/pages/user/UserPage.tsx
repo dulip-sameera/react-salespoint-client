@@ -13,32 +13,28 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
-import { USER_TABLE_HEADERS } from "../constants/enum/tableHeaders";
+import { USER_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
-import { useUserDetails } from "../providers/UserProvider";
-import { RoleEnum } from "../constants/enum/RoleEnum";
-import isUserHavePermission from "../utils/checkRoleIncludes";
-import { IUserResponse } from "../types/ResponseTypes";
+import { useUserDetails } from "../../providers/UserProvider";
+import { RoleEnum } from "../../constants/enum/RoleEnum";
+import isUserHavePermission from "../../utils/checkRoleIncludes";
+import { IUserResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
-import {
-  DELETE_USER_URL,
-  GET_ALL_USERS_URL,
-  GET_USER_URL,
-} from "../constants/requestUrls";
+import { useAuth } from "../../providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import {
   UI_PATH_ADD_USER,
   UI_PATH_HOME,
   UI_PATH_UPDATE_USER,
-} from "../constants/paths";
+} from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import useFetchAllUsers from "../hook/useFetchAllUsers";
-import { Status } from "../constants/enum/StatusEnum";
+import useFetchAllUsers from "../../hook/useFetchAllUsers";
+import { Status } from "../../constants/enum/StatusEnum";
+import { USERS_BASE_URL } from "../../constants/requestUrls";
 
 const tableHeaders = Object.values(USER_TABLE_HEADERS);
 
@@ -68,7 +64,7 @@ const UserPage = () => {
 
   useEffect(() => {
     axios
-      .get<IUserResponse[]>(GET_ALL_USERS_URL, {
+      .get<IUserResponse[]>(USERS_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -79,7 +75,7 @@ const UserPage = () => {
 
   const fetchUser = (username: string) => {
     axios
-      .get<IUserResponse>(`${GET_USER_URL}/find/${username}`, {
+      .get<IUserResponse>(`${USERS_BASE_URL}/find/${username}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -99,7 +95,7 @@ const UserPage = () => {
 
   const handleDelete = (id: number) => {
     axios
-      .delete<string>(`${DELETE_USER_URL}/${id}`, {
+      .delete<string>(`${USERS_BASE_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

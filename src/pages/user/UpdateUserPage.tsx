@@ -23,11 +23,7 @@ import { RoleEnum } from "../../constants/enum/RoleEnum";
 import { useFormik } from "formik";
 import { IUserUpdateFormField } from "../../types/FormFieldTypes";
 import { IUserResponse } from "../../types/ResponseTypes";
-import {
-  GET_ALL_USER_ROLES_URL,
-  GET_ALL_USER_STATUSES_URL,
-  PUT_UPDATE_USER_URL,
-} from "../../constants/requestUrls";
+import { USERS_BASE_URL } from "../../constants/requestUrls";
 import useFetchUserById from "../../hook/useFetchUserById";
 import { UpdateUserSchema } from "../../schema/UpdateUserSchema";
 
@@ -53,7 +49,7 @@ const UpdateUserPage = () => {
 
   useEffect(() => {
     axios
-      .get<string[]>(GET_ALL_USER_ROLES_URL, {
+      .get<string[]>(`${USERS_BASE_URL}/roles`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -67,7 +63,7 @@ const UpdateUserPage = () => {
       });
 
     axios
-      .get<string[]>(GET_ALL_USER_STATUSES_URL, {
+      .get<string[]>(`${USERS_BASE_URL}/statuses`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -101,7 +97,7 @@ const UpdateUserPage = () => {
       status: values.status,
     };
     axios
-      .put<IUserResponse>(`${PUT_UPDATE_USER_URL}/${id}`, data, {
+      .put<IUserResponse>(`${USERS_BASE_URL}/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

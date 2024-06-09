@@ -13,30 +13,30 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
-import { ITEM_TABLE_HEADERS } from "../constants/enum/tableHeaders";
+import { ITEM_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
-import { CustomerStatus } from "../constants/enum/CustomerStatus";
-import { useUserDetails } from "../providers/UserProvider";
-import { RoleEnum } from "../constants/enum/RoleEnum";
-import checkRoleIncludes from "../utils/checkRoleIncludes";
-import { IItemResponse } from "../types/ResponseTypes";
+import { CustomerStatus } from "../../constants/enum/CustomerStatus";
+import { useUserDetails } from "../../providers/UserProvider";
+import { RoleEnum } from "../../constants/enum/RoleEnum";
+import checkRoleIncludes from "../../utils/checkRoleIncludes";
+import { IItemResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
-import { DELETE_ITEM_URL, GET_ALL_ITEMS_URL } from "../constants/requestUrls";
+import { useAuth } from "../../providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import {
   UI_PATH_ADD_ITEM,
   UI_PATH_HOME,
   UI_PATH_ITEM_CATEGORY,
   UI_PATH_UPDATE_ITEM,
-} from "../constants/paths";
+} from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import useFetchAllItems from "../hook/useFetchAllItems";
-import isUserHavePermission from "../utils/checkRoleIncludes";
+import useFetchAllItems from "../../hook/useFetchAllItems";
+import isUserHavePermission from "../../utils/checkRoleIncludes";
+import { ITEMS_BASE_URL } from "../../constants/requestUrls";
 
 const tableHeaders = Object.values(ITEM_TABLE_HEADERS);
 
@@ -66,7 +66,7 @@ const ItemPage = () => {
 
   useEffect(() => {
     axios
-      .get<IItemResponse[]>(GET_ALL_ITEMS_URL, {
+      .get<IItemResponse[]>(ITEMS_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -77,7 +77,7 @@ const ItemPage = () => {
 
   const fetchItem = (itemName: string) => {
     axios
-      .get<IItemResponse>(`${GET_ALL_ITEMS_URL}/find/${itemName}`, {
+      .get<IItemResponse>(`${ITEMS_BASE_URL}/find/${itemName}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -97,7 +97,7 @@ const ItemPage = () => {
 
   const handleDelete = (id: number) => {
     axios
-      .delete<string>(`${DELETE_ITEM_URL}/${id}`, {
+      .delete<string>(`${ITEMS_BASE_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

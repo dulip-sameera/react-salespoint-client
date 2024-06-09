@@ -1,46 +1,46 @@
-import { useEffect, useState } from "react"
-import { IUserResponse } from "../types/ResponseTypes"
-import { useAuth } from "../providers/AuthProvider"
-import axios, { AxiosError } from "axios"
-import { GET_ALL_USERS_URL } from "../constants/requestUrls"
+import { useEffect, useState } from "react";
+import { IUserResponse } from "../types/ResponseTypes";
+import { useAuth } from "../providers/AuthProvider";
+import axios, { AxiosError } from "axios";
+import { USERS_BASE_URL } from "../constants/requestUrls";
 
 const useFetchAllUsers = () => {
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState<AxiosError>()
-    const [users, setUsers] = useState<IUserResponse[] | null>(null)
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<AxiosError>();
+  const [users, setUsers] = useState<IUserResponse[] | null>(null);
 
-    const {token} = useAuth();
+  const { token } = useAuth();
 
-    useEffect(() => {
+  useEffect(() => {
+    setLoading(true);
 
-        setLoading(true);
+    if (!token) {
+      return;
+    }
 
-        if (!token) {
-            return;
-          }
-      
-          axios
-            .get<IUserResponse[]>(GET_ALL_USERS_URL, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            })
-            .then((response) => {
-              const data = response.data;
-      
-              setUsers(data);
-            })
-            .catch((error) => {
-              if (axios.isAxiosError(error)) {
-                console.log(error);
-                setError(error)
-              }
-            }).finally(() => {
-                setLoading(false)
-            });
-    }, [])
+    axios
+      .get<IUserResponse[]>(USERS_BASE_URL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const data = response.data;
 
-    return {loading, users, error};
-}
+        setUsers(data);
+      })
+      .catch((error) => {
+        if (axios.isAxiosError(error)) {
+          console.log(error);
+          setError(error);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  return { loading, users, error };
+};
 
 export default useFetchAllUsers;

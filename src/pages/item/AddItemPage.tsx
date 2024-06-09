@@ -11,22 +11,23 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
-import { UI_PATH_ITEM } from "../constants/paths";
+import { UI_PATH_ITEM } from "../../constants/paths";
 import { useEffect, useState } from "react";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
-import { IItemAddFormField } from "../types/FormFieldTypes";
-import { IItemCategoryResponse, IItemResponse } from "../types/ResponseTypes";
+import { IItemAddFormField } from "../../types/FormFieldTypes";
 import {
-  GET_ALL_ITEM_CATEGORIES_URL,
-  POST_CREATE_ITEM_URL,
-} from "../constants/requestUrls";
-import { AddItemSchema } from "../schema/AddItemSchema";
+  IItemCategoryResponse,
+  IItemResponse,
+} from "../../types/ResponseTypes";
+import { ITEMS_BASE_URL } from "../../constants/requestUrls";
+import { AddItemSchema } from "../../schema/AddItemSchema";
 import { useFormik } from "formik";
+import { ITEM_CATEGORIES_BASE_URL } from "../../constants/requestUrls";
 
 const AddItemPage = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const AddItemPage = () => {
 
   useEffect(() => {
     axios
-      .get<IItemCategoryResponse[]>(GET_ALL_ITEM_CATEGORIES_URL, {
+      .get<IItemCategoryResponse[]>(ITEM_CATEGORIES_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,7 +57,7 @@ const AddItemPage = () => {
       category: values.category,
     };
     axios
-      .post<IItemResponse>(POST_CREATE_ITEM_URL, data, {
+      .post<IItemResponse>(ITEMS_BASE_URL, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

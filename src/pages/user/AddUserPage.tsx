@@ -10,24 +10,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
-import { UI_PATH_USER } from "../constants/paths";
-import { useUserDetails } from "../providers/UserProvider";
+import { UI_PATH_USER } from "../../constants/paths";
+import { useUserDetails } from "../../providers/UserProvider";
 import { useEffect, useState } from "react";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
-import { RoleEnum } from "../constants/enum/RoleEnum";
+import { RoleEnum } from "../../constants/enum/RoleEnum";
 import { useFormik } from "formik";
-import { AddUserSchema } from "../schema/AddUserSchema";
-import { IUserAddFormField } from "../types/FormFieldTypes";
-import { IUserResponse } from "../types/ResponseTypes";
-import {
-  GET_ALL_USER_ROLES_URL,
-  POST_CREATE_USER_URL,
-} from "../constants/requestUrls";
+import { AddUserSchema } from "../../schema/AddUserSchema";
+import { IUserAddFormField } from "../../types/FormFieldTypes";
+import { IUserResponse } from "../../types/ResponseTypes";
+import { USERS_BASE_URL } from "../../constants/requestUrls";
 
 const AddUserPage = () => {
   const navigate = useNavigate();
@@ -37,7 +34,7 @@ const AddUserPage = () => {
 
   useEffect(() => {
     axios
-      .get<string[]>(GET_ALL_USER_ROLES_URL, {
+      .get<string[]>(USERS_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,7 +56,7 @@ const AddUserPage = () => {
       role: values.role,
     };
     axios
-      .post<IUserResponse>(POST_CREATE_USER_URL, data, {
+      .post<IUserResponse>(USERS_BASE_URL, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

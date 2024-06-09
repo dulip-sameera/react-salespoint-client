@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IItemCategoryResponse } from "../types/ResponseTypes";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { GET_ALL_ITEM_CATEGORIES_URL } from "../constants/requestUrls";
+import { ITEM_CATEGORIES_BASE_URL } from "../constants/requestUrls";
 
 const useFetchAllItemCategories = () => {
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ const useFetchAllItemCategories = () => {
     }
 
     axios
-      .get<IItemCategoryResponse[]>(GET_ALL_ITEM_CATEGORIES_URL, {
+      .get<IItemCategoryResponse[]>(ITEM_CATEGORIES_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

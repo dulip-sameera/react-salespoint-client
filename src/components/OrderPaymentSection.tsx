@@ -3,10 +3,7 @@ import { IOrderResponse } from "../types/ResponseTypes";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { HttpStatusCode } from "axios";
-import {
-  DELETE_ORDER_URL,
-  PUT_UPDATE_PAID_STATUS_URL,
-} from "../constants/requestUrls";
+import { ORDERS_BASE_URL } from "../constants/requestUrls";
 import { UI_PATH_ORDER } from "../constants/paths";
 import { toast } from "react-toastify";
 
@@ -21,7 +18,7 @@ const OrderPaymentSection = ({ order }: Props) => {
 
   const handleOrderCancel = () => {
     axios
-      .delete(`${DELETE_ORDER_URL}/${order?.id}`, {
+      .delete(`${ORDERS_BASE_URL}/${order?.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -48,7 +45,7 @@ const OrderPaymentSection = ({ order }: Props) => {
       paidStatus: true,
     };
     axios
-      .put<IOrderResponse>(PUT_UPDATE_PAID_STATUS_URL, data, {
+      .put<IOrderResponse>(`${ORDERS_BASE_URL}/pay`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

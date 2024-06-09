@@ -13,32 +13,28 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
-import { ORDER_TABLE_HEADERS } from "../constants/enum/tableHeaders";
+import { ORDER_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
-import { useUserDetails } from "../providers/UserProvider";
-import { RoleEnum } from "../constants/enum/RoleEnum";
-import isUserHavePermission from "../utils/checkRoleIncludes";
-import { IOrderResponse } from "../types/ResponseTypes";
+import { useUserDetails } from "../../providers/UserProvider";
+import { RoleEnum } from "../../constants/enum/RoleEnum";
+import isUserHavePermission from "../../utils/checkRoleIncludes";
+import { IOrderResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
-import {
-  DELETE_ORDER_URL,
-  GET_ORDER_BY_ID_URL,
-} from "../constants/requestUrls";
+import { useAuth } from "../../providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import {
   UI_PATH_CREATE_ORDER,
   UI_PATH_HOME,
   UI_PATH_UPDATE_ORDER,
-  UI_PATH_UPDATE_USER,
-} from "../constants/paths";
+} from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import useFetchAllOrders from "../hook/useFetchAllOrders";
-import { getDateAndTime } from "../utils/getDateAndTime";
+import useFetchAllOrders from "../../hook/useFetchAllOrders";
+import { getDateAndTime } from "../../utils/getDateAndTime";
+import { ORDERS_BASE_URL } from "../../constants/requestUrls";
 
 const tableHeaders = Object.values(ORDER_TABLE_HEADERS);
 
@@ -72,7 +68,7 @@ const OrderPage = () => {
 
   const fetchOrder = (orderId: string) => {
     axios
-      .get<IOrderResponse>(`${GET_ORDER_BY_ID_URL}/${orderId}`, {
+      .get<IOrderResponse>(`${ORDERS_BASE_URL}/${orderId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -94,7 +90,7 @@ const OrderPage = () => {
 
   const handleDelete = (id: number) => {
     axios
-      .delete<string>(`${DELETE_ORDER_URL}/${id}`, {
+      .delete<string>(`${ORDERS_BASE_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

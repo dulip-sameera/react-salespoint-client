@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IStockResponse } from "../types/ResponseTypes";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { GET_ALL_STOCKS_BY_ITEM_URL } from "../constants/requestUrls";
+import { STOCKS_BASE_URL } from "../constants/requestUrls";
 
 const useFetchStockByItemId = (id: number) => {
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ const useFetchStockByItemId = (id: number) => {
     }
 
     axios
-      .get<IStockResponse[]>(`${GET_ALL_STOCKS_BY_ITEM_URL}/${id}`, {
+      .get<IStockResponse[]>(`${STOCKS_BASE_URL}/item/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

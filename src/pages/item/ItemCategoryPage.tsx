@@ -13,31 +13,25 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
-import { ITEM_CATEGORY_TABLE_HEADERS } from "../constants/enum/tableHeaders";
+import { ITEM_CATEGORY_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
-import { useUserDetails } from "../providers/UserProvider";
-import { RoleEnum } from "../constants/enum/RoleEnum";
-import isUserHavePermission from "../utils/checkRoleIncludes";
-import { IItemCategoryResponse } from "../types/ResponseTypes";
+import { useUserDetails } from "../../providers/UserProvider";
+import { RoleEnum } from "../../constants/enum/RoleEnum";
+import isUserHavePermission from "../../utils/checkRoleIncludes";
+import { IItemCategoryResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
-import {
-  DELETE_ITEM_CATEGORY_URL,
-  GET_ALL_ITEM_CATEGORIES_URL,
-  GET_ITEM_CATEGORy_BY_NAME_URL,
-  POST_CREATE_ITEM_CATEGORIES_URL,
-  PUT_UPDATE_ITEM_CATEGORIES_URL,
-} from "../constants/requestUrls";
+import { useAuth } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { UI_PATH_ITEM } from "../constants/paths";
+import { UI_PATH_ITEM } from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import useFetchAllItemCategories from "../hook/useFetchAllItemCategories";
+import useFetchAllItemCategories from "../../hook/useFetchAllItemCategories";
 import { FormikHelpers, FormikState, useFormik } from "formik";
 import * as yup from "yup";
+import { ITEM_CATEGORIES_BASE_URL } from "../../constants/requestUrls";
 
 const tableHeaders = Object.values(ITEM_CATEGORY_TABLE_HEADERS);
 
@@ -74,7 +68,7 @@ const ItemCategoryPage = () => {
 
   useEffect(() => {
     axios
-      .get<IItemCategoryResponse[]>(GET_ALL_ITEM_CATEGORIES_URL, {
+      .get<IItemCategoryResponse[]>(ITEM_CATEGORIES_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -93,7 +87,7 @@ const ItemCategoryPage = () => {
   ) => {
     axios
       .post<IItemCategoryResponse>(
-        POST_CREATE_ITEM_CATEGORIES_URL,
+        `${ITEM_CATEGORIES_BASE_URL}`,
         { name: values.name },
         {
           headers: {
@@ -126,7 +120,7 @@ const ItemCategoryPage = () => {
   ) => {
     axios
       .put<IItemCategoryResponse>(
-        `${PUT_UPDATE_ITEM_CATEGORIES_URL}/${updatedItem.id}`,
+        `${ITEM_CATEGORIES_BASE_URL}/${updatedItem.id}`,
         { name: values.name },
         {
           headers: {
@@ -180,7 +174,7 @@ const ItemCategoryPage = () => {
   const fetchItemCategory = (itemCategoryName: string) => {
     axios
       .get<IItemCategoryResponse>(
-        `${GET_ITEM_CATEGORy_BY_NAME_URL}/find/${itemCategoryName}`,
+        `${ITEM_CATEGORIES_BASE_URL}/find/${itemCategoryName}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -202,7 +196,7 @@ const ItemCategoryPage = () => {
 
   const handleDelete = (id: number) => {
     axios
-      .delete<string>(`${DELETE_ITEM_CATEGORY_URL}/${id}`, {
+      .delete<string>(`${ITEM_CATEGORIES_BASE_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

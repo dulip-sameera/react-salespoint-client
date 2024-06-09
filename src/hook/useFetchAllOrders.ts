@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IOrderResponse } from "../types/ResponseTypes";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { GET_ALL_ORDERS_URL } from "../constants/requestUrls";
+import { ORDERS_BASE_URL } from "../constants/requestUrls";
 
 const useFetchAllOrders = () => {
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ const useFetchAllOrders = () => {
     }
 
     axios
-      .get<IOrderResponse[]>(GET_ALL_ORDERS_URL, {
+      .get<IOrderResponse[]>(ORDERS_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IItemResponse } from "../types/ResponseTypes";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { GET_ALL_ITEMS_URL } from "../constants/requestUrls";
+import { ITEMS_BASE_URL } from "../constants/requestUrls";
 
 const useFetchAllItems = () => {
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ const useFetchAllItems = () => {
     }
 
     axios
-      .get<IItemResponse[]>(GET_ALL_ITEMS_URL, {
+      .get<IItemResponse[]>(ITEMS_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

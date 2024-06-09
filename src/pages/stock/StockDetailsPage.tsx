@@ -13,29 +13,25 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useEffect, useState } from "react";
-import { STOCK_DETAIL_TABLE_HEADERS } from "../constants/enum/tableHeaders";
+import { STOCK_DETAIL_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
 
-import { IItemResponse, IStockResponse } from "../types/ResponseTypes";
+import { IItemResponse, IStockResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
-import {
-  DELETE_STOCK_URL,
-  GET_ALL_STOCKS_BY_ITEM_URL,
-  GET_ITEM_BY_ID_URL,
-  PUT_UPDATE_STOCK_URL,
-} from "../constants/requestUrls";
+import { useAuth } from "../../providers/AuthProvider";
+import { STOCKS_BASE_URL } from "../../constants/requestUrls";
 import { useNavigate, useParams } from "react-router-dom";
-import { UI_PATH_STOCK } from "../constants/paths";
+import { UI_PATH_STOCK } from "../../constants/paths";
 
-import useFetchStockByItemId from "../hook/useFetchStockByItemId";
-import useFetchItemById from "../hook/useFetchItemById";
-import { getDateAndTime } from "../utils/getDateAndTime";
+import useFetchStockByItemId from "../../hook/useFetchStockByItemId";
+import useFetchItemById from "../../hook/useFetchItemById";
+import { getDateAndTime } from "../../utils/getDateAndTime";
 import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";
+import { ITEMS_BASE_URL } from "../../constants/requestUrls";
 
 const tableHeaders = Object.values(STOCK_DETAIL_TABLE_HEADERS);
 
@@ -87,7 +83,7 @@ const StockDetailsPage = () => {
 
   useEffect(() => {
     axios
-      .get(`${GET_ALL_STOCKS_BY_ITEM_URL}/${id}`, {
+      .get(`${STOCKS_BASE_URL}/item/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -95,7 +91,7 @@ const StockDetailsPage = () => {
       .then((response) => setTableData(response.data));
 
     axios
-      .get(`${GET_ITEM_BY_ID_URL}/${id}`, {
+      .get(`${ITEMS_BASE_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -114,7 +110,7 @@ const StockDetailsPage = () => {
     };
 
     axios
-      .put(`${PUT_UPDATE_STOCK_URL}/${updatingStock?.id}`, data, {
+      .put(`${STOCKS_BASE_URL}/${updatingStock?.id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -139,7 +135,7 @@ const StockDetailsPage = () => {
 
   const handleDelete = (id: number) => {
     axios
-      .delete(`${DELETE_STOCK_URL}/${id}`, {
+      .delete(`${STOCKS_BASE_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

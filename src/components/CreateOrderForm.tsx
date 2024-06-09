@@ -5,7 +5,7 @@ import useFetchAllCustomers from "../hook/useFetchAllCustomers";
 import { useUserDetails } from "../providers/UserProvider";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { HttpStatusCode } from "axios";
-import { POST_CREATE_ORDER_URL } from "../constants/requestUrls";
+import { ORDERS_BASE_URL } from "../constants/requestUrls";
 import { toast } from "react-toastify";
 import { FormikConfig, useFormik } from "formik";
 import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
@@ -23,11 +23,7 @@ interface CreateOrderProps {
 }
 
 const CreateOrderForm: FC<CreateOrderProps> = ({ setOrder }) => {
-  const {
-    loading: loadingCustomers,
-    customers,
-    error: errorCustomer,
-  } = useFetchAllCustomers();
+  const { loading: loadingCustomers, customers } = useFetchAllCustomers();
 
   const { user } = useUserDetails();
 
@@ -40,7 +36,7 @@ const CreateOrderForm: FC<CreateOrderProps> = ({ setOrder }) => {
     };
 
     axios
-      .post(POST_CREATE_ORDER_URL, data, {
+      .post(ORDERS_BASE_URL, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

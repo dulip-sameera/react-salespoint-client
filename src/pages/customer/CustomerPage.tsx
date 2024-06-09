@@ -13,27 +13,23 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
-import { CUSTOMER_TABLE_HEADERS } from "../constants/enum/tableHeaders";
-import useFetchAllCustomers from "../hook/useFetchAllCustomers";
+import { CUSTOMER_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
+import useFetchAllCustomers from "../../hook/useFetchAllCustomers";
 import { toast } from "react-toastify";
-import { CustomerStatus } from "../constants/enum/CustomerStatus";
-import { useUserDetails } from "../providers/UserProvider";
-import { RoleEnum } from "../constants/enum/RoleEnum";
-import isUserHavePermission from "../utils/checkRoleIncludes";
-import { ICustomerResponse } from "../types/ResponseTypes";
+import { CustomerStatus } from "../../constants/enum/CustomerStatus";
+import { useUserDetails } from "../../providers/UserProvider";
+import { RoleEnum } from "../../constants/enum/RoleEnum";
+import isUserHavePermission from "../../utils/checkRoleIncludes";
+import { ICustomerResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
-import {
-  DELETE_CUSTOMER_URL,
-  GET_ALL_CUSTOMERS_URL,
-  GET_CUSTOMER_BY_PHONE_URL,
-} from "../constants/requestUrls";
+import { useAuth } from "../../providers/AuthProvider";
+import { CUSTOMERS_BASE_URL } from "../../constants/requestUrls";
 import { Link, useNavigate } from "react-router-dom";
-import { UI_PATH_UPDATE_CUSTOMER, UI_PATH_HOME } from "../constants/paths";
+import { UI_PATH_UPDATE_CUSTOMER, UI_PATH_HOME } from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 const tableHeaders = Object.values(CUSTOMER_TABLE_HEADERS);
@@ -64,7 +60,7 @@ const CustomerPage = () => {
 
   useEffect(() => {
     axios
-      .get<ICustomerResponse[]>(GET_ALL_CUSTOMERS_URL, {
+      .get<ICustomerResponse[]>(CUSTOMERS_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -75,7 +71,7 @@ const CustomerPage = () => {
 
   const fetchCustomer = (phone: string) => {
     axios
-      .get<ICustomerResponse>(`${GET_CUSTOMER_BY_PHONE_URL}/${phone}`, {
+      .get<ICustomerResponse>(`${CUSTOMERS_BASE_URL}/phone/${phone}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -97,7 +93,7 @@ const CustomerPage = () => {
 
   const handleDelete = (id: number) => {
     axios
-      .delete<string>(`${DELETE_CUSTOMER_URL}/${id}`, {
+      .delete<string>(`${CUSTOMERS_BASE_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

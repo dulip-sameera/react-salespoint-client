@@ -7,24 +7,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
-import { UI_PATH_STOCK } from "../constants/paths";
+import { UI_PATH_STOCK } from "../../constants/paths";
 import { useEffect, useState } from "react";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
-import { IStockAddFormField } from "../types/FormFieldTypes";
-import { IItemResponse, IStockResponse } from "../types/ResponseTypes";
-import {
-  GET_ALL_ITEMS_URL,
-  POST_CREATE_STOCK_URL,
-} from "../constants/requestUrls";
+import { IStockAddFormField } from "../../types/FormFieldTypes";
+import { IItemResponse, IStockResponse } from "../../types/ResponseTypes";
+import { ITEMS_BASE_URL, STOCKS_BASE_URL } from "../../constants/requestUrls";
 import { useFormik } from "formik";
-import { ItemListType } from "../types/types";
-import { AddStockSchema } from "../schema/AddStockSchema";
-import { Status } from "../constants/enum/StatusEnum";
+import { ItemListType } from "../../types/types";
+import { AddStockSchema } from "../../schema/AddStockSchema";
+import { Status } from "../../constants/enum/StatusEnum";
 
 const AddStockPage = () => {
   const navigate = useNavigate();
@@ -33,7 +30,7 @@ const AddStockPage = () => {
 
   useEffect(() => {
     axios
-      .get<IItemResponse[]>(GET_ALL_ITEMS_URL, {
+      .get<IItemResponse[]>(ITEMS_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +58,7 @@ const AddStockPage = () => {
       qty: values.qty,
     };
     axios
-      .post<IStockResponse>(POST_CREATE_STOCK_URL, data, {
+      .post<IStockResponse>(STOCKS_BASE_URL, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IItemResponse } from "../types/ResponseTypes";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { GET_ITEM_BY_ID_URL } from "../constants/requestUrls";
+import { ITEMS_BASE_URL } from "../constants/requestUrls";
 
 const useFetchItemById = (id: number) => {
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ const useFetchItemById = (id: number) => {
     }
 
     axios
-      .get<IItemResponse>(`${GET_ITEM_BY_ID_URL}/${id}`, {
+      .get<IItemResponse>(`${ITEMS_BASE_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

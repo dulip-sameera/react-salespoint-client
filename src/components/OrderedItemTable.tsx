@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction } from "react";
 import { IOrderResponse } from "../types/ResponseTypes";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { HttpStatusCode } from "axios";
-import { POST_ORDER_REMOVE_ITEM_URL } from "../constants/requestUrls";
+import { ORDERS_BASE_URL } from "../constants/requestUrls";
 import { toast } from "react-toastify";
 import {
   Box,
@@ -36,7 +36,7 @@ const OrderedItemsTable: FC<IOrderedItemsTableProps> = ({
       orderId: order?.id,
     };
     axios
-      .post<IOrderResponse>(POST_ORDER_REMOVE_ITEM_URL, data, {
+      .post<IOrderResponse>(`${ORDERS_BASE_URL}/remove-item`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

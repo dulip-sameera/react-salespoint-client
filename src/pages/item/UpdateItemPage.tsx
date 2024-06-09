@@ -11,29 +11,24 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate, useParams } from "react-router-dom";
-import { UI_PATH_ITEM } from "../constants/paths";
+import { UI_PATH_ITEM } from "../../constants/paths";
 import { useEffect, useState } from "react";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
+import { IItemUpdateFormField } from "../../types/FormFieldTypes";
 import {
-  IItemAddFormField,
-  IItemUpdateFormField,
-} from "../types/FormFieldTypes";
-import { IItemCategoryResponse, IItemResponse } from "../types/ResponseTypes";
-import {
-  GET_ALL_ITEM_CATEGORIES_URL,
-  GET_ALL_ITEM_STATUSES_URL,
-  POST_CREATE_ITEM_URL,
-  PUT_UPDATE_ITEM_URL,
-} from "../constants/requestUrls";
-import { AddItemSchema } from "../schema/AddItemSchema";
+  IItemCategoryResponse,
+  IItemResponse,
+} from "../../types/ResponseTypes";
+import { ITEMS_BASE_URL } from "../../constants/requestUrls";
 import { useFormik } from "formik";
-import useFetchItemById from "../hook/useFetchItemById";
-import { UpdateItemSchema } from "../schema/UpdateItemSchema";
+import useFetchItemById from "../../hook/useFetchItemById";
+import { UpdateItemSchema } from "../../schema/UpdateItemSchema";
+import { ITEM_CATEGORIES_BASE_URL } from "../../constants/requestUrls";
 
 const UpdateItemPage = () => {
   const navigate = useNavigate();
@@ -56,7 +51,7 @@ const UpdateItemPage = () => {
 
   useEffect(() => {
     axios
-      .get<IItemCategoryResponse[]>(GET_ALL_ITEM_CATEGORIES_URL, {
+      .get<IItemCategoryResponse[]>(ITEM_CATEGORIES_BASE_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -70,7 +65,7 @@ const UpdateItemPage = () => {
       });
 
     axios
-      .get<string[]>(GET_ALL_ITEM_STATUSES_URL, {
+      .get<string[]>(`${ITEMS_BASE_URL}/statuses`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -100,7 +95,7 @@ const UpdateItemPage = () => {
       status: values.status,
     };
     axios
-      .put<IItemResponse>(`${PUT_UPDATE_ITEM_URL}/${id}`, data, {
+      .put<IItemResponse>(`${ITEMS_BASE_URL}/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

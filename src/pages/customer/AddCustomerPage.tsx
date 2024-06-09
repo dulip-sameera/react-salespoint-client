@@ -6,18 +6,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
-import { UI_PATH_CUSTOMER } from "../constants/paths";
+import { UI_PATH_CUSTOMER } from "../../constants/paths";
 import { useFormik } from "formik";
-import { AddCustomerSchema } from "../schema/AddCustomerSchema";
-import { ICustomerAddFormField } from "../types/FormFieldTypes";
+import { AddCustomerSchema } from "../../schema/AddCustomerSchema";
+import { ICustomerAddFormField } from "../../types/FormFieldTypes";
 import axios from "axios";
-import { useAuth } from "../providers/AuthProvider";
-import { ICustomerResponse } from "../types/ResponseTypes";
+import { useAuth } from "../../providers/AuthProvider";
+import { ICustomerResponse } from "../../types/ResponseTypes";
 import { toast } from "react-toastify";
-import { POST_CREATE_CUSTOMER_URL } from "../constants/requestUrls";
+import { CUSTOMERS_BASE_URL } from "../../constants/requestUrls";
 
 const AddCustomerPage = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const AddCustomerPage = () => {
       phone: values.phone,
     };
     axios
-      .post<ICustomerResponse>(POST_CREATE_CUSTOMER_URL, data, {
+      .post<ICustomerResponse>(CUSTOMERS_BASE_URL, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
