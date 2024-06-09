@@ -24,8 +24,8 @@ import { useFormik } from "formik";
 import { IUserUpdateFormField } from "../../types/FormFieldTypes";
 import { IUserResponse } from "../../types/ResponseTypes";
 import { USERS_BASE_URL } from "../../constants/request-urls";
-import useFetchUserById from "../../hook/user/useFetchUserById";
 import { UpdateUserSchema } from "../../schema/UpdateUserSchema";
+import { useFetchUserById } from "../../hook/user";
 
 const UpdateUserPage = () => {
   const navigate = useNavigate();
@@ -292,4 +292,4 @@ const UpdateUserPage = () => {
   );
 };
 
-export default UpdateUserPage;
+export { UpdateUserPage };

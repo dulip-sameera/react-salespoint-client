@@ -26,9 +26,9 @@ import {
 } from "../../types/ResponseTypes";
 import { ITEMS_BASE_URL } from "../../constants/request-urls";
 import { useFormik } from "formik";
-import useFetchItemById from "../../hook/item/useFetchItemById";
 import { UpdateItemSchema } from "../../schema/UpdateItemSchema";
 import { ITEM_CATEGORIES_BASE_URL } from "../../constants/request-urls";
+import { useFetchItemById } from "../../hook/item";
 
 const UpdateItemPage = () => {
   const navigate = useNavigate();
@@ -269,4 +269,4 @@ const UpdateItemPage = () => {
   );
 };
 
-export default UpdateItemPage;
+export { UpdateItemPage };

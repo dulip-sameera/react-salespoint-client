@@ -32,9 +32,9 @@ import {
   UI_PATH_MORE_STOCK,
 } from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import useFetchAllItems from "../../hook/item/useFetchAllItems";
 import isUserHavePermission from "../../utils/checkRoleIncludes";
 import { Status } from "../../constants/enum/status";
+import { useFetchAllItems } from "../../hook/item";
 
 const tableHeaders = Object.values(STOCK_TABLE_HEADERS);
 
@@ -260,4 +260,4 @@ const StockPage = () => {
   );
 };
 
-export default StockPage;
+export { StockPage };

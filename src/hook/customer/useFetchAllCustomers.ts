@@ -43,4 +43,4 @@ const useFetchAllCustomers = () => {
   return { loading, customers, error };
 };
 
-export default useFetchAllCustomers;
+export { useFetchAllCustomers };

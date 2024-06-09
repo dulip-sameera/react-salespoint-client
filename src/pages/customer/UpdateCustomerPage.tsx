@@ -18,8 +18,8 @@ import { useAuth } from "../../providers/AuthProvider";
 import { ICustomerResponse } from "../../types/ResponseTypes";
 import { toast } from "react-toastify";
 import { CUSTOMERS_BASE_URL } from "../../constants/request-urls";
-import useFetchCustomersById from "../../hook/customer/useFetchCustomerById";
 import { useEffect, useState } from "react";
+import { useFetchCustomersById } from "../../hook/customer";
 
 const UpdateCustomerPage = () => {
   const navigate = useNavigate();
@@ -169,4 +169,4 @@ const UpdateCustomerPage = () => {
   );
 };
 
-export default UpdateCustomerPage;
+export { UpdateCustomerPage };

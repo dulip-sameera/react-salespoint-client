@@ -18,7 +18,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { CUSTOMER_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
-import useFetchAllCustomers from "../../hook/customer/useFetchAllCustomers";
 import { toast } from "react-toastify";
 import { useUserDetails } from "../../providers/UserProvider";
 import { RoleEnum } from "../../constants/enum/roles";
@@ -31,6 +30,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UI_PATH_UPDATE_CUSTOMER, UI_PATH_HOME } from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { Status } from "../../constants/enum/status";
+import { useFetchAllCustomers } from "../../hook/customer";
 
 const tableHeaders = Object.values(CUSTOMER_TABLE_HEADERS);
 
@@ -273,4 +273,4 @@ const CustomerPage = () => {
   );
 };
 
-export default CustomerPage;
+export { CustomerPage };

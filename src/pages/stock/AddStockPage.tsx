@@ -186,4 +186,4 @@ const AddStockPage = () => {
   );
 };
 
-export default AddStockPage;
+export { AddStockPage };

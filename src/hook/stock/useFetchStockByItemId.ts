@@ -43,4 +43,4 @@ const useFetchStockByItemId = (id: number) => {
   return { loading, stocks, error };
 };
 
-export default useFetchStockByItemId;
+export { useFetchStockByItemId };

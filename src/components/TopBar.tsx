@@ -16,7 +16,7 @@ import { useUserDetails } from "../providers/UserProvider";
 import { useAuth } from "../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { UI_PATH_LOGIN } from "../constants/paths";
-import useFetchCurrentUser from "../hook/useFetchCurrentUser";
+import { useFetchCurrentUser } from "../hook/user";
 
 const drawerWidth = 240;
 

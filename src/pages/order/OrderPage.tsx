@@ -32,9 +32,9 @@ import {
   UI_PATH_UPDATE_ORDER,
 } from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import useFetchAllOrders from "../../hook/order/useFetchAllOrders";
 import { getDateAndTime } from "../../utils/getDateAndTime";
 import { ORDERS_BASE_URL } from "../../constants/request-urls";
+import { useFetchAllOrders } from "../../hook/order";
 
 const tableHeaders = Object.values(ORDER_TABLE_HEADERS);
 
@@ -298,4 +298,4 @@ const OrderPage = () => {
   );
 };
 
-export default OrderPage;
+export { OrderPage };

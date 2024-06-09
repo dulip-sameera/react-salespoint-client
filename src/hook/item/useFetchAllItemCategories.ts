@@ -45,4 +45,4 @@ const useFetchAllItemCategories = () => {
   return { loading, itemCategories, error };
 };
 
-export default useFetchAllItemCategories;
+export { useFetchAllItemCategories };

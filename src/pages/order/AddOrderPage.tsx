@@ -62,4 +62,4 @@ const AddOrderPage = () => {
   );
 };
 
-export default AddOrderPage;
+export { AddOrderPage };

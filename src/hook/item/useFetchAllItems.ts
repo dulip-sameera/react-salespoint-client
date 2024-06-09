@@ -43,4 +43,4 @@ const useFetchAllItems = () => {
   return { loading, items, error };
 };
 
-export default useFetchAllItems;
+export { useFetchAllItems };

@@ -43,4 +43,4 @@ const useFetchAllUsers = () => {
   return { loading, users, error };
 };
 
-export default useFetchAllUsers;
+export { useFetchAllUsers };

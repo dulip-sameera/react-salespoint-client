@@ -204,4 +204,4 @@ const AddItemPage = () => {
   );
 };
 
-export default AddItemPage;
+export { AddItemPage };

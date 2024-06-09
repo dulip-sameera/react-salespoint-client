@@ -43,4 +43,4 @@ const useFetchItemById = (id: number) => {
   return { loading, item, error };
 };
 
-export default useFetchItemById;
+export { useFetchItemById };

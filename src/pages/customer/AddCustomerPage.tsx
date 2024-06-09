@@ -143,4 +143,4 @@ const AddCustomerPage = () => {
   );
 };
 
-export default AddCustomerPage;
+export { AddCustomerPage };

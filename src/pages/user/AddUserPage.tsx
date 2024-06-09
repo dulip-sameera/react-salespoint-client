@@ -232,4 +232,4 @@ const AddUserPage = () => {
   );
 };
 
-export default AddUserPage;
+export { AddUserPage };

@@ -43,4 +43,4 @@ const useFetchCustomersById = (id: number) => {
   return { loading, customer, error };
 };
 
-export default useFetchCustomersById;
+export { useFetchCustomersById };

@@ -47,4 +47,4 @@ const useFetchOrderById = (id: number) => {
   return { loading, order, loadOrder, error };
 };
 
-export default useFetchOrderById;
+export { useFetchOrderById };

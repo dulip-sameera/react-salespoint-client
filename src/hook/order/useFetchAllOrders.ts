@@ -47,4 +47,4 @@ const useFetchAllOrders = () => {
   return { loading, orders, loadOrders, error };
 };
 
-export default useFetchAllOrders;
+export { useFetchAllOrders };

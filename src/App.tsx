@@ -26,25 +26,23 @@ import {
   UI_PATH_USER,
 } from "./constants/paths";
 import { CssBaseline } from "@mui/material";
-import HomePage from "./pages/HomePage";
-import UpdateUserPage from "./pages/user/UpdateUserPage";
 
 import ProtectedRoute from "./utils/routes/ProtectedRoute";
-import CustomerPage from "./pages/customer/CustomerPage";
-import AddCustomerPage from "./pages/customer/AddCustomerPage";
-import UpdateCustomerPage from "./pages/customer/UpdateCustomerPage";
-import UserPage from "./pages/user/UserPage";
-import AddUserPage from "./pages/user/AddUserPage";
-import AddItemPage from "./pages/item/AddItemPage";
-import ItemPage from "./pages/item/ItemPage";
-import UpdateItemPage from "./pages/item/UpdateItemPage";
-import ItemCategoryPage from "./pages/item/ItemCategoryPage";
-import StockPage from "./pages/stock/StockPage";
-import AddStockPage from "./pages/stock/AddStockPage";
-import StockDetailsPage from "./pages/stock/StockDetailsPage";
-import OrderPage from "./pages/order/OrderPage";
-import AddOrderPage from "./pages/order/AddOrderPage";
-import OrderDetailsPage from "./pages/order/OrderDetailsPage";
+import HomePage from "./pages/HomePage";
+import {
+  AddCustomerPage,
+  CustomerPage,
+  UpdateCustomerPage,
+} from "./pages/customer";
+import { AddUserPage, UpdateUserPage, UserPage } from "./pages/user";
+import {
+  AddItemPage,
+  ItemCategoryPage,
+  ItemPage,
+  UpdateItemPage,
+} from "./pages/item";
+import { AddStockPage, StockDetailsPage, StockPage } from "./pages/stock";
+import { AddOrderPage, OrderDetailsPage, OrderPage } from "./pages/order";
 
 const App = () => {
   return (

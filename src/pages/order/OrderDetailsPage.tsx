@@ -1,21 +1,20 @@
 import { Box, Button, Container, Divider, Typography } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import { useNavigate, useParams } from "react-router-dom";
-import { UI_PATH_ORDER } from "../constants/paths";
+import { UI_PATH_ORDER } from "../../constants/paths";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { IOrderResponse } from "../types/ResponseTypes";
+import { IOrderResponse } from "../../types/ResponseTypes";
 
 import { useEffect, useState } from "react";
-import OrderItemAddForm from "../components/OrderItemAddForn";
-import OrderDetails from "../components/OrderDetails";
-import CreateOrderForm from "../components/CreateOrderForm";
+import OrderItemAddForm from "../../components/OrderItemAddForm";
+import OrderDetails from "../../components/OrderDetails";
 
-import OrderedItemsTable from "../components/OrderedItemTable";
+import OrderedItemsTable from "../../components/OrderedItemTable";
 
-import OrderPaymentSection from "../components/OrderPaymentSection";
-import useFetchOrderById from "../hook/useFetchOrderById";
+import OrderPaymentSection from "../../components/OrderPaymentSection";
 import { toast } from "react-toastify";
 import axios, { HttpStatusCode } from "axios";
+import { useFetchOrderById } from "../../hook/order";
 
 const OrderDetailsPage = () => {
   const [order, setOrder] = useState<IOrderResponse | null>(null);
@@ -83,4 +82,4 @@ const OrderDetailsPage = () => {
   );
 };
 
-export default OrderDetailsPage;
+export { OrderDetailsPage };

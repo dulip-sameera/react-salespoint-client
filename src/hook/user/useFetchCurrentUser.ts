@@ -43,4 +43,4 @@ const useFetchCurrentUser = () => {
   return { loading, currentUser, error };
 };
 
-export default useFetchCurrentUser;
+export { useFetchCurrentUser };

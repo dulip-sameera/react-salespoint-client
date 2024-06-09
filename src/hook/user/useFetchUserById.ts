@@ -43,4 +43,4 @@ const useFetchUserById = (id: number) => {
   return { loading, fetchedUser, error };
 };
 
-export default useFetchUserById;
+export { useFetchUserById };

@@ -1,7 +1,6 @@
 import { Dispatch, FC, SetStateAction } from "react";
 import { ICustomerResponse, IOrderResponse } from "../types/ResponseTypes";
 import * as yup from "yup";
-import useFetchAllCustomers from "../hook/customer/useFetchAllCustomers";
 import { useUserDetails } from "../providers/UserProvider";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { HttpStatusCode } from "axios";
@@ -9,6 +8,7 @@ import { ORDERS_BASE_URL } from "../constants/request-urls";
 import { toast } from "react-toastify";
 import { FormikConfig, useFormik } from "formik";
 import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
+import { useFetchAllCustomers } from "../hook/customer";
 
 interface IOrderCustomerFormType {
   customer: ICustomerResponse | null;
