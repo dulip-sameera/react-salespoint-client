@@ -25,7 +25,7 @@ import { useUserDetails } from "../providers/UserProvider";
 import { RoleEnum } from "../constants/enum/RoleEnum";
 import isUserHavePermission from "../utils/checkRoleIncludes";
 import { ICustomerResponse } from "../types/ResponseTypes";
-import axios from "axios";
+import axios, { HttpStatusCode } from "axios";
 import { useAuth } from "../providers/AuthProvider";
 import {
   DELETE_CUSTOMER_URL,
@@ -70,6 +70,7 @@ const CustomerPage = () => {
         },
       })
       .then((response) => setTableData(response.data));
+    setSearchText("");
   }, [refresh]);
 
   const fetchCustomer = (phone: string) => {
@@ -84,8 +85,12 @@ const CustomerPage = () => {
       })
       .catch((error) => {
         if (axios.isAxiosError(error)) {
-          toast.error(error.response.data.description, { theme: "colored" });
           console.log(error);
+          if (error.status == HttpStatusCode.InternalServerError) {
+            toast.error(error.response?.data.detail);
+          } else {
+            toast.error(error.response?.data.description);
+          }
         }
       });
   };
