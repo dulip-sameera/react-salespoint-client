@@ -27,23 +27,24 @@ import {
 } from "./constants/paths";
 import { CssBaseline } from "@mui/material";
 import HomePage from "./pages/HomePage";
-import CustomerPage from "./pages/CustomerPage";
-import AddCustomerPage from "./pages/AddCustomerPage";
-import UpdateCustomerPage from "./pages/UpdateCustomerPage";
-import UserPage from "./pages/UserPage";
-import AddUserPage from "./pages/AddUserPage";
 import UpdateUserPage from "./pages/user/UpdateUserPage";
-import ItemPage from "./pages/ItemPage";
-import ItemCategoryPage from "./pages/ItemCategoryPage";
-import AddItemPage from "./pages/AddItemPage";
-import UpdateItemPage from "./pages/UpdateItemPage";
-import StockPage from "./pages/StockPage";
-import AddStockPage from "./pages/AddStockPage";
-import StockDetailsPage from "./pages/StockDetailsPage";
-import OrderPage from "./pages/OrderPage";
-import AddOrderPage from "./pages/AddOrderPage";
-import OrderDetailsPage from "./pages/OrderDetailsPage";
+
 import ProtectedRoute from "./utils/routes/ProtectedRoute";
+import CustomerPage from "./pages/customer/CustomerPage";
+import AddCustomerPage from "./pages/customer/AddCustomerPage";
+import UpdateCustomerPage from "./pages/customer/UpdateCustomerPage";
+import UserPage from "./pages/user/UserPage";
+import AddUserPage from "./pages/user/AddUserPage";
+import AddItemPage from "./pages/item/AddItemPage";
+import ItemPage from "./pages/item/ItemPage";
+import UpdateItemPage from "./pages/item/UpdateItemPage";
+import ItemCategoryPage from "./pages/item/ItemCategoryPage";
+import StockPage from "./pages/stock/StockPage";
+import AddStockPage from "./pages/stock/AddStockPage";
+import StockDetailsPage from "./pages/stock/StockDetailsPage";
+import OrderPage from "./pages/order/OrderPage";
+import AddOrderPage from "./pages/order/AddOrderPage";
+import OrderDetailsPage from "./pages/order/OrderDetailsPage";
 
 const App = () => {
   return (
