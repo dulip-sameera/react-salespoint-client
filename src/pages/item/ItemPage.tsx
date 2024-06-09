@@ -19,7 +19,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { ITEM_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
-import { CustomerStatus } from "../../constants/enum/CustomerStatus";
 import { useUserDetails } from "../../providers/UserProvider";
 import { RoleEnum } from "../../constants/enum/RoleEnum";
 import checkRoleIncludes from "../../utils/checkRoleIncludes";
@@ -37,6 +36,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import useFetchAllItems from "../../hook/useFetchAllItems";
 import isUserHavePermission from "../../utils/checkRoleIncludes";
 import { ITEMS_BASE_URL } from "../../constants/request-urls";
+import { Status } from "../../constants/enum/status";
 
 const tableHeaders = Object.values(ITEM_TABLE_HEADERS);
 
@@ -289,7 +289,7 @@ const ItemPage = () => {
                                 Update
                               </Button>
                             </Link>
-                            {tableDataItem.status !== CustomerStatus.DELETE ? (
+                            {tableDataItem.status !== Status.DELETE ? (
                               <Button
                                 variant="contained"
                                 color="error"

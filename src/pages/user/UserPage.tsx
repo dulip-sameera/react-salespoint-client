@@ -33,7 +33,7 @@ import {
 } from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import useFetchAllUsers from "../../hook/useFetchAllUsers";
-import { Status } from "../../constants/enum/StatusEnum";
+import { Status } from "../../constants/enum/status";
 import { USERS_BASE_URL } from "../../constants/request-urls";
 
 const tableHeaders = Object.values(USER_TABLE_HEADERS);

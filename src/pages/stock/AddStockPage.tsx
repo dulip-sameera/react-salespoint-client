@@ -21,7 +21,7 @@ import { ITEMS_BASE_URL, STOCKS_BASE_URL } from "../../constants/request-urls";
 import { useFormik } from "formik";
 import { ItemListType } from "../../types/types";
 import { AddStockSchema } from "../../schema/AddStockSchema";
-import { Status } from "../../constants/enum/StatusEnum";
+import { Status } from "../../constants/enum/status";
 
 const AddStockPage = () => {
   const navigate = useNavigate();

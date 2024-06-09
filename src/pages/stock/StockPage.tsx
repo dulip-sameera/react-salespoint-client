@@ -37,7 +37,7 @@ import {
 import RefreshIcon from "@mui/icons-material/Refresh";
 import useFetchAllItems from "../../hook/useFetchAllItems";
 import isUserHavePermission from "../../utils/checkRoleIncludes";
-import { Status } from "../../constants/enum/StatusEnum";
+import { Status } from "../../constants/enum/status";
 
 const tableHeaders = Object.values(STOCK_TABLE_HEADERS);
 

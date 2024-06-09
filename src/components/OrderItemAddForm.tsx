@@ -19,7 +19,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Status } from "../constants/enum/StatusEnum";
+import { Status } from "../constants/enum/status";
 
 interface IOrderItemAddFormProps {
   setOrder: Dispatch<SetStateAction<IOrderResponse | null>>;
