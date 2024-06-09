@@ -17,7 +17,7 @@ import { useAuth } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
 import { IStockAddFormField } from "../../types/FormFieldTypes";
 import { IItemResponse, IStockResponse } from "../../types/ResponseTypes";
-import { ITEMS_BASE_URL, STOCKS_BASE_URL } from "../../constants/requestUrls";
+import { ITEMS_BASE_URL, STOCKS_BASE_URL } from "../../constants/request-urls";
 import { useFormik } from "formik";
 import { ItemListType } from "../../types/types";
 import { AddStockSchema } from "../../schema/AddStockSchema";

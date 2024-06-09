@@ -22,7 +22,7 @@ import { toast } from "react-toastify";
 import { IItemResponse, IStockResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
 import { useAuth } from "../../providers/AuthProvider";
-import { STOCKS_BASE_URL } from "../../constants/requestUrls";
+import { STOCKS_BASE_URL } from "../../constants/request-urls";
 import { useNavigate, useParams } from "react-router-dom";
 import { UI_PATH_STOCK } from "../../constants/paths";
 
@@ -31,7 +31,7 @@ import useFetchItemById from "../../hook/useFetchItemById";
 import { getDateAndTime } from "../../utils/getDateAndTime";
 import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";
-import { ITEMS_BASE_URL } from "../../constants/requestUrls";
+import { ITEMS_BASE_URL } from "../../constants/request-urls";
 
 const tableHeaders = Object.values(STOCK_DETAIL_TABLE_HEADERS);
 

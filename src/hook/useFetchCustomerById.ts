@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ICustomerResponse } from "../types/ResponseTypes";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { CUSTOMERS_BASE_URL } from "../constants/requestUrls";
+import { CUSTOMERS_BASE_URL } from "../constants/request-urls";
 
 const useFetchCustomersById = (id: number) => {
   const [loading, setLoading] = useState(false);

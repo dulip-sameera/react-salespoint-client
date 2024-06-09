@@ -8,7 +8,7 @@ import useFetchAllItems from "../hook/useFetchAllItems";
 import { useAuth } from "../providers/AuthProvider";
 import * as yup from "yup";
 import axios, { HttpStatusCode } from "axios";
-import { ORDERS_BASE_URL } from "../constants/requestUrls";
+import { ORDERS_BASE_URL } from "../constants/request-urls";
 import { toast } from "react-toastify";
 import { FormikConfig, FormikHelpers, useFormik } from "formik";
 import {

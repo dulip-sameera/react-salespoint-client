@@ -31,7 +31,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import useFetchAllItemCategories from "../../hook/useFetchAllItemCategories";
 import { FormikHelpers, FormikState, useFormik } from "formik";
 import * as yup from "yup";
-import { ITEM_CATEGORIES_BASE_URL } from "../../constants/requestUrls";
+import { ITEM_CATEGORIES_BASE_URL } from "../../constants/request-urls";
 
 const tableHeaders = Object.values(ITEM_CATEGORY_TABLE_HEADERS);
 

@@ -24,10 +24,10 @@ import {
   IItemCategoryResponse,
   IItemResponse,
 } from "../../types/ResponseTypes";
-import { ITEMS_BASE_URL } from "../../constants/requestUrls";
+import { ITEMS_BASE_URL } from "../../constants/request-urls";
 import { AddItemSchema } from "../../schema/AddItemSchema";
 import { useFormik } from "formik";
-import { ITEM_CATEGORIES_BASE_URL } from "../../constants/requestUrls";
+import { ITEM_CATEGORIES_BASE_URL } from "../../constants/request-urls";
 
 const AddItemPage = () => {
   const navigate = useNavigate();

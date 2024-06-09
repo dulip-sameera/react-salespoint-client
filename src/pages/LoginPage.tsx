@@ -4,7 +4,7 @@ import { ValidationSchema } from "../schema/LoginFormSchema";
 import { ILoginFormField } from "../types/FormFieldTypes";
 import axios from "axios";
 import { ILoginResponse } from "../types/ResponseTypes";
-import { AUTH_LOGIN_URL } from "../constants/requestUrls";
+import { AUTH_LOGIN_URL } from "../constants/request-urls";
 import { toast } from "react-toastify";
 import { useAuth } from "../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";

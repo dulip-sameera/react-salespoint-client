@@ -24,11 +24,11 @@ import {
   IItemCategoryResponse,
   IItemResponse,
 } from "../../types/ResponseTypes";
-import { ITEMS_BASE_URL } from "../../constants/requestUrls";
+import { ITEMS_BASE_URL } from "../../constants/request-urls";
 import { useFormik } from "formik";
 import useFetchItemById from "../../hook/useFetchItemById";
 import { UpdateItemSchema } from "../../schema/UpdateItemSchema";
-import { ITEM_CATEGORIES_BASE_URL } from "../../constants/requestUrls";
+import { ITEM_CATEGORIES_BASE_URL } from "../../constants/request-urls";
 
 const UpdateItemPage = () => {
   const navigate = useNavigate();

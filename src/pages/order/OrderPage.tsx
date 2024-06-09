@@ -34,7 +34,7 @@ import {
 import RefreshIcon from "@mui/icons-material/Refresh";
 import useFetchAllOrders from "../../hook/useFetchAllOrders";
 import { getDateAndTime } from "../../utils/getDateAndTime";
-import { ORDERS_BASE_URL } from "../../constants/requestUrls";
+import { ORDERS_BASE_URL } from "../../constants/request-urls";
 
 const tableHeaders = Object.values(ORDER_TABLE_HEADERS);
 

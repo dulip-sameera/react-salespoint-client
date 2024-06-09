@@ -23,7 +23,7 @@ import { RoleEnum } from "../../constants/enum/RoleEnum";
 import { useFormik } from "formik";
 import { IUserUpdateFormField } from "../../types/FormFieldTypes";
 import { IUserResponse } from "../../types/ResponseTypes";
-import { USERS_BASE_URL } from "../../constants/requestUrls";
+import { USERS_BASE_URL } from "../../constants/request-urls";
 import useFetchUserById from "../../hook/useFetchUserById";
 import { UpdateUserSchema } from "../../schema/UpdateUserSchema";
 

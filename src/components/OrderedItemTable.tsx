@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction } from "react";
 import { IOrderResponse } from "../types/ResponseTypes";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { HttpStatusCode } from "axios";
-import { ORDERS_BASE_URL } from "../constants/requestUrls";
+import { ORDERS_BASE_URL } from "../constants/request-urls";
 import { toast } from "react-toastify";
 import {
   Box,

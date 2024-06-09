@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IItemResponse } from "../types/ResponseTypes";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { ITEMS_BASE_URL } from "../constants/requestUrls";
+import { ITEMS_BASE_URL } from "../constants/request-urls";
 
 const useFetchAllItems = () => {
   const [loading, setLoading] = useState(false);

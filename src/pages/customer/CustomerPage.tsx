@@ -27,7 +27,7 @@ import isUserHavePermission from "../../utils/checkRoleIncludes";
 import { ICustomerResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
 import { useAuth } from "../../providers/AuthProvider";
-import { CUSTOMERS_BASE_URL } from "../../constants/requestUrls";
+import { CUSTOMERS_BASE_URL } from "../../constants/request-urls";
 import { Link, useNavigate } from "react-router-dom";
 import { UI_PATH_UPDATE_CUSTOMER, UI_PATH_HOME } from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";

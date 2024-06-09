@@ -3,7 +3,7 @@ import { IOrderResponse } from "../types/ResponseTypes";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { HttpStatusCode } from "axios";
-import { ORDERS_BASE_URL } from "../constants/requestUrls";
+import { ORDERS_BASE_URL } from "../constants/request-urls";
 import { UI_PATH_ORDER } from "../constants/paths";
 import { toast } from "react-toastify";
 

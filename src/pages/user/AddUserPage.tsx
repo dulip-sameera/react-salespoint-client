@@ -24,7 +24,7 @@ import { useFormik } from "formik";
 import { AddUserSchema } from "../../schema/AddUserSchema";
 import { IUserAddFormField } from "../../types/FormFieldTypes";
 import { IUserResponse } from "../../types/ResponseTypes";
-import { USERS_BASE_URL } from "../../constants/requestUrls";
+import { USERS_BASE_URL } from "../../constants/request-urls";
 
 const AddUserPage = () => {
   const navigate = useNavigate();

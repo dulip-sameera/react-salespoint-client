@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IUserResponse } from "../types/ResponseTypes";
 import { useAuth } from "../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { USERS_BASE_URL } from "../constants/requestUrls";
+import { USERS_BASE_URL } from "../constants/request-urls";
 
 const useFetchUserById = (id: number) => {
   const [loading, setLoading] = useState(false);

@@ -36,7 +36,7 @@ import {
 import RefreshIcon from "@mui/icons-material/Refresh";
 import useFetchAllItems from "../../hook/useFetchAllItems";
 import isUserHavePermission from "../../utils/checkRoleIncludes";
-import { ITEMS_BASE_URL } from "../../constants/requestUrls";
+import { ITEMS_BASE_URL } from "../../constants/request-urls";
 
 const tableHeaders = Object.values(ITEM_TABLE_HEADERS);
 

@@ -27,7 +27,7 @@ import { RoleEnum } from "../../constants/enum/RoleEnum";
 import { IItemResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
 import { useAuth } from "../../providers/AuthProvider";
-import { ITEMS_BASE_URL } from "../../constants/requestUrls";
+import { ITEMS_BASE_URL } from "../../constants/request-urls";
 import { Link, useNavigate } from "react-router-dom";
 import {
   UI_PATH_ADD_STOCK,

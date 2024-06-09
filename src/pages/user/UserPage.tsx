@@ -34,7 +34,7 @@ import {
 import RefreshIcon from "@mui/icons-material/Refresh";
 import useFetchAllUsers from "../../hook/useFetchAllUsers";
 import { Status } from "../../constants/enum/StatusEnum";
-import { USERS_BASE_URL } from "../../constants/requestUrls";
+import { USERS_BASE_URL } from "../../constants/request-urls";
 
 const tableHeaders = Object.values(USER_TABLE_HEADERS);
 
