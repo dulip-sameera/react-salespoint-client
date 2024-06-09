@@ -32,7 +32,7 @@ import AddCustomerPage from "./pages/AddCustomerPage";
 import UpdateCustomerPage from "./pages/UpdateCustomerPage";
 import UserPage from "./pages/UserPage";
 import AddUserPage from "./pages/AddUserPage";
-import UpdateUserPage from "./pages/UpdateUserPage";
+import UpdateUserPage from "./pages/user/UpdateUserPage";
 import ItemPage from "./pages/ItemPage";
 import ItemCategoryPage from "./pages/ItemCategoryPage";
 import AddItemPage from "./pages/AddItemPage";

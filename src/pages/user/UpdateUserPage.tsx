@@ -10,26 +10,26 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate, useParams } from "react-router-dom";
-import { UI_PATH_USER } from "../constants/paths";
-import { useUserDetails } from "../providers/UserProvider";
+import { UI_PATH_USER } from "../../constants/paths";
+import { useUserDetails } from "../../providers/UserProvider";
 import { useEffect, useState } from "react";
 import axios, { HttpStatusCode } from "axios";
-import { useAuth } from "../providers/AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
-import { RoleEnum } from "../constants/enum/RoleEnum";
+import { RoleEnum } from "../../constants/enum/RoleEnum";
 import { useFormik } from "formik";
-import { IUserUpdateFormField } from "../types/FormFieldTypes";
-import { IUserResponse } from "../types/ResponseTypes";
+import { IUserUpdateFormField } from "../../types/FormFieldTypes";
+import { IUserResponse } from "../../types/ResponseTypes";
 import {
   GET_ALL_USER_ROLES_URL,
   GET_ALL_USER_STATUSES_URL,
   PUT_UPDATE_USER_URL,
-} from "../constants/requestUrls";
-import useFetchUserById from "../hook/useFetchUserById";
-import { UpdateUserSchema } from "../schema/UpdateUserSchema";
+} from "../../constants/requestUrls";
+import useFetchUserById from "../../hook/useFetchUserById";
+import { UpdateUserSchema } from "../../schema/UpdateUserSchema";
 
 const UpdateUserPage = () => {
   const navigate = useNavigate();
