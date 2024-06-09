@@ -20,7 +20,6 @@ import { useEffect, useState } from "react";
 import { CUSTOMER_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
 import useFetchAllCustomers from "../../hook/useFetchAllCustomers";
 import { toast } from "react-toastify";
-import { CustomerStatus } from "../../constants/enum/CustomerStatus";
 import { useUserDetails } from "../../providers/UserProvider";
 import { RoleEnum } from "../../constants/enum/RoleEnum";
 import isUserHavePermission from "../../utils/checkRoleIncludes";
@@ -31,6 +30,7 @@ import { CUSTOMERS_BASE_URL } from "../../constants/request-urls";
 import { Link, useNavigate } from "react-router-dom";
 import { UI_PATH_UPDATE_CUSTOMER, UI_PATH_HOME } from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import { Status } from "../../constants/enum/status";
 
 const tableHeaders = Object.values(CUSTOMER_TABLE_HEADERS);
 
@@ -249,7 +249,7 @@ const CustomerPage = () => {
                             RoleEnum.MANAGER,
                             RoleEnum.SUPER_ADMIN,
                           ]) &&
-                          tableDataItem.status !== CustomerStatus.DELETE ? (
+                          tableDataItem.status !== Status.DELETE ? (
                             <Button
                               variant="contained"
                               color="error"
