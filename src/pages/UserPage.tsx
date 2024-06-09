@@ -74,6 +74,7 @@ const UserPage = () => {
         },
       })
       .then((response) => setTableData(response.data));
+    setSearchText("");
   }, [refresh]);
 
   const fetchUser = (username: string) => {
