@@ -19,14 +19,17 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { USER_TABLE_HEADERS } from "../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
-import { CustomerStatus } from "../constants/enum/CustomerStatus";
 import { useUserDetails } from "../providers/UserProvider";
 import { RoleEnum } from "../constants/enum/RoleEnum";
 import isUserHavePermission from "../utils/checkRoleIncludes";
 import { IUserResponse } from "../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
 import { useAuth } from "../providers/AuthProvider";
-import { DELETE_USER_URL, GET_ALL_USERS_URL } from "../constants/requestUrls";
+import {
+  DELETE_USER_URL,
+  GET_ALL_USERS_URL,
+  GET_USER_URL,
+} from "../constants/requestUrls";
 import { Link, useNavigate } from "react-router-dom";
 import {
   UI_PATH_ADD_USER,
@@ -71,26 +74,27 @@ const UserPage = () => {
         },
       })
       .then((response) => setTableData(response.data));
+    setSearchText("");
   }, [refresh]);
 
   const fetchUser = (username: string) => {
-    toast.warning("Not Implemented Yet");
-
-    // axios
-    //   .get<IUserResponse>(`${GET_CUSTOMER_BY_PHONE_URL}${phone}`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     setTableData([response.data]);
-    //   })
-    //   .catch((error) => {
-    //     if (axios.isAxiosError(error)) {
-    //       toast.error(error.response.data.description, { theme: "colored" });
-    //       console.log(error);
-    //     }
-    //   });
+    axios
+      .get<IUserResponse>(`${GET_USER_URL}/find/${username}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => setTableData([response.data]))
+      .catch((error) => {
+        if (axios.isAxiosError(error)) {
+          console.log(error);
+          if (error.status == HttpStatusCode.InternalServerError) {
+            toast.error(error.response?.data.detail);
+          } else {
+            toast.error(error.response?.data.description);
+          }
+        }
+      });
   };
 
   const handleDelete = (id: number) => {

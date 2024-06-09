@@ -10,7 +10,7 @@ import * as yup from "yup";
 import axios, { HttpStatusCode } from "axios";
 import { POST_ORDER_ADD_ITEM_URL } from "../constants/requestUrls";
 import { toast } from "react-toastify";
-import { FormikConfig, useFormik } from "formik";
+import { FormikConfig, FormikHelpers, useFormik } from "formik";
 import {
   Autocomplete,
   Box,
@@ -64,7 +64,10 @@ const OrderItemAddForm: FC<IOrderItemAddFormProps> = ({ order, setOrder }) => {
 
   const { token } = useAuth();
 
-  const handleOrderItemAddFormSubmit = (values: IOrderItemAddFormType) => {
+  const handleOrderItemAddFormSubmit = (
+    values: IOrderItemAddFormType,
+    { resetForm }: FormikHelpers<IOrderItemAddFormType>
+  ) => {
     const data = {
       orderId: order?.id,
       itemId: values.item?.id,
@@ -80,6 +83,7 @@ const OrderItemAddForm: FC<IOrderItemAddFormProps> = ({ order, setOrder }) => {
       .then((response) => {
         setOrder(response.data);
         toast.success("Item Added");
+        resetForm();
       })
       .catch((error) => {
         if (axios.isAxiosError(error)) {

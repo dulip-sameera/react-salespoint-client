@@ -72,26 +72,27 @@ const ItemPage = () => {
         },
       })
       .then((response) => setTableData(response.data));
+    setSearchText("");
   }, [refresh]);
 
   const fetchItem = (itemName: string) => {
-    toast.warning("Not Implemented Yet");
-
-    // axios
-    //   .get<IUserResponse>(`${GET_CUSTOMER_BY_PHONE_URL}${phone}`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     setTableData([response.data]);
-    //   })
-    //   .catch((error) => {
-    //     if (axios.isAxiosError(error)) {
-    //       toast.error(error.response.data.description, { theme: "colored" });
-    //       console.log(error);
-    //     }
-    //   });
+    axios
+      .get<IItemResponse>(`${GET_ALL_ITEMS_URL}/find/${itemName}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => setTableData([response.data]))
+      .catch((error) => {
+        if (axios.isAxiosError(error)) {
+          console.log(error);
+          if (error.status == HttpStatusCode.InternalServerError) {
+            toast.error(error.response?.data.detail);
+          } else {
+            toast.error(error.response?.data.description);
+          }
+        }
+      });
   };
 
   const handleDelete = (id: number) => {
