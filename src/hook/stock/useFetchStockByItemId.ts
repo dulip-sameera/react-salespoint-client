@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { IStockResponse } from "../types/ResponseTypes";
-import { useAuth } from "../providers/AuthProvider";
+import { IStockResponse } from "../../types/ResponseTypes";
+import { useAuth } from "../../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { STOCKS_BASE_URL } from "../constants/request-urls";
+import { STOCKS_BASE_URL } from "../../constants/request-urls";
 
 const useFetchStockByItemId = (id: number) => {
   const [loading, setLoading] = useState(false);

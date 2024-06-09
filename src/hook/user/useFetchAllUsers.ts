@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { IUserResponse } from "../types/ResponseTypes";
-import { useAuth } from "../providers/AuthProvider";
+import { IUserResponse } from "../../types/ResponseTypes";
+import { useAuth } from "../../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { USERS_BASE_URL } from "../constants/request-urls";
+import { USERS_BASE_URL } from "../../constants/request-urls";
 
 const useFetchAllUsers = () => {
   const [loading, setLoading] = useState(false);

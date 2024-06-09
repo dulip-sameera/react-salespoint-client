@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { IOrderResponse } from "../types/ResponseTypes";
-import { useAuth } from "../providers/AuthProvider";
+import { IOrderResponse } from "../../types/ResponseTypes";
+import { useAuth } from "../../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { ORDERS_BASE_URL } from "../constants/request-urls";
+import { ORDERS_BASE_URL } from "../../constants/request-urls";
 
 const useFetchAllOrders = () => {
   const [loading, setLoading] = useState(false);

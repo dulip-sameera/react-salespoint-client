@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { IItemCategoryResponse } from "../types/ResponseTypes";
-import { useAuth } from "../providers/AuthProvider";
+import { IItemCategoryResponse } from "../../types/ResponseTypes";
+import { useAuth } from "../../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { ITEM_CATEGORIES_BASE_URL } from "../constants/request-urls";
+import { ITEM_CATEGORIES_BASE_URL } from "../../constants/request-urls";
 
 const useFetchAllItemCategories = () => {
   const [loading, setLoading] = useState(false);

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { IItemResponse } from "../types/ResponseTypes";
-import { useAuth } from "../providers/AuthProvider";
+import { IItemResponse } from "../../types/ResponseTypes";
+import { useAuth } from "../../providers/AuthProvider";
 import axios, { AxiosError } from "axios";
-import { ITEMS_BASE_URL } from "../constants/request-urls";
+import { ITEMS_BASE_URL } from "../../constants/request-urls";
 
 const useFetchItemById = (id: number) => {
   const [loading, setLoading] = useState(false);
