@@ -26,8 +26,8 @@ import { STOCKS_BASE_URL } from "../../constants/request-urls";
 import { useNavigate, useParams } from "react-router-dom";
 import { UI_PATH_STOCK } from "../../constants/paths";
 
-import useFetchStockByItemId from "../../hook/useFetchStockByItemId";
-import useFetchItemById from "../../hook/useFetchItemById";
+import useFetchStockByItemId from "../../hook/stock/useFetchStockByItemId";
+import useFetchItemById from "../../hook/item/useFetchItemById";
 import { getDateAndTime } from "../../utils/getDateAndTime";
 import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";

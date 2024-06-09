@@ -4,7 +4,7 @@ import {
   IItemResponse,
   IOrderResponse,
 } from "../types/ResponseTypes";
-import useFetchAllItems from "../hook/useFetchAllItems";
+import useFetchAllItems from "../hook/item/useFetchAllItems";
 import { useAuth } from "../providers/AuthProvider";
 import * as yup from "yup";
 import axios, { HttpStatusCode } from "axios";

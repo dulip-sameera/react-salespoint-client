@@ -18,7 +18,7 @@ import { useAuth } from "../../providers/AuthProvider";
 import { ICustomerResponse } from "../../types/ResponseTypes";
 import { toast } from "react-toastify";
 import { CUSTOMERS_BASE_URL } from "../../constants/request-urls";
-import useFetchCustomersById from "../../hook/useFetchCustomerById";
+import useFetchCustomersById from "../../hook/customer/useFetchCustomerById";
 import { useEffect, useState } from "react";
 
 const UpdateCustomerPage = () => {

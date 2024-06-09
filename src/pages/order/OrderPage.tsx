@@ -32,7 +32,7 @@ import {
   UI_PATH_UPDATE_ORDER,
 } from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import useFetchAllOrders from "../../hook/useFetchAllOrders";
+import useFetchAllOrders from "../../hook/order/useFetchAllOrders";
 import { getDateAndTime } from "../../utils/getDateAndTime";
 import { ORDERS_BASE_URL } from "../../constants/request-urls";
 

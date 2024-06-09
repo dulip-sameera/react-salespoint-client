@@ -17,10 +17,7 @@ import TopBar from "../../components/TopBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
-import {
-  STOCK_DETAIL_TABLE_HEADERS,
-  STOCK_TABLE_HEADERS,
-} from "../../constants/enum/tableHeaders";
+import { STOCK_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
 import { useUserDetails } from "../../providers/UserProvider";
 import { RoleEnum } from "../../constants/enum/roles";
@@ -35,7 +32,7 @@ import {
   UI_PATH_MORE_STOCK,
 } from "../../constants/paths";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import useFetchAllItems from "../../hook/useFetchAllItems";
+import useFetchAllItems from "../../hook/item/useFetchAllItems";
 import isUserHavePermission from "../../utils/checkRoleIncludes";
 import { Status } from "../../constants/enum/status";
 

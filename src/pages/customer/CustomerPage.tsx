@@ -18,7 +18,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { CUSTOMER_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
-import useFetchAllCustomers from "../../hook/useFetchAllCustomers";
+import useFetchAllCustomers from "../../hook/customer/useFetchAllCustomers";
 import { toast } from "react-toastify";
 import { useUserDetails } from "../../providers/UserProvider";
 import { RoleEnum } from "../../constants/enum/roles";
