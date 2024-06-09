@@ -21,7 +21,7 @@ import { CUSTOMER_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
 import useFetchAllCustomers from "../../hook/useFetchAllCustomers";
 import { toast } from "react-toastify";
 import { useUserDetails } from "../../providers/UserProvider";
-import { RoleEnum } from "../../constants/enum/RoleEnum";
+import { RoleEnum } from "../../constants/enum/roles";
 import isUserHavePermission from "../../utils/checkRoleIncludes";
 import { ICustomerResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";

@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 import axios, { HttpStatusCode } from "axios";
 import { useAuth } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
-import { RoleEnum } from "../../constants/enum/RoleEnum";
+import { RoleEnum } from "../../constants/enum/roles";
 import { useFormik } from "formik";
 import { IUserUpdateFormField } from "../../types/FormFieldTypes";
 import { IUserResponse } from "../../types/ResponseTypes";

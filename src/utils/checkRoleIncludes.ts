@@ -1,4 +1,4 @@
-import { RoleEnum } from "../constants/enum/RoleEnum";
+import { RoleEnum } from "../constants/enum/roles";
 
 export default function checkRoleIncludes(
   searchingRole: string,

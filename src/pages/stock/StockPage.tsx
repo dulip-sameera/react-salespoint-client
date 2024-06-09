@@ -23,7 +23,7 @@ import {
 } from "../../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
 import { useUserDetails } from "../../providers/UserProvider";
-import { RoleEnum } from "../../constants/enum/RoleEnum";
+import { RoleEnum } from "../../constants/enum/roles";
 import { IItemResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
 import { useAuth } from "../../providers/AuthProvider";

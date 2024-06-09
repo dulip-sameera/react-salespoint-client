@@ -9,7 +9,7 @@ import {
   UI_PATH_USER,
 } from "../constants/paths";
 import RoleAccess from "../utils/RoleAccess";
-import { RoleEnum } from "../constants/enum/RoleEnum";
+import { RoleEnum } from "../constants/enum/roles";
 
 const btnStyle = {
   width: "100%",

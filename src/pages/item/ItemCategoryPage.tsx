@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { ITEM_CATEGORY_TABLE_HEADERS } from "../../constants/enum/tableHeaders";
 import { toast } from "react-toastify";
 import { useUserDetails } from "../../providers/UserProvider";
-import { RoleEnum } from "../../constants/enum/RoleEnum";
+import { RoleEnum } from "../../constants/enum/roles";
 import isUserHavePermission from "../../utils/checkRoleIncludes";
 import { IItemCategoryResponse } from "../../types/ResponseTypes";
 import axios, { HttpStatusCode } from "axios";
